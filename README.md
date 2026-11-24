@@ -6,11 +6,14 @@ Chạy hoàn toàn trên trình duyệt — không cần tài khoản, không c�
 
 ## Cách chơi
 
-- **Chế độ chơi linh hoạt:** **Cả lớp** (hợp tác giữ đuốc mở kho báu) hoặc **2 / 3 / 4 đội đối kháng** xuất phát ở các góc đối xứng công bằng.
-- **Chọn hướng đi chiến thuật:** Ở mỗi lượt, các phòng kề vùng đã mở sẽ phát sáng kèm tọa độ (`A1`, `B2`…). Học sinh đọc tọa độ phòng muốn tiến vào (đi thẳng ăn **🔑 Mảnh Mật Mã**, rẽ nhánh nhặt **💎 Rương Vàng +50đ** hay **💡 Bùa Gợi Ý**).
-- **Quyền dùng Gợi Ý (50/50):** Khi gặp câu khó, đội có thể bấm **💡 Gợi ý (`H`)** để loại bỏ một nửa phương án sai (hoặc nhận gợi ý cho Đúng/Sai & Trả lời ngắn), đổi lại trừ 30 điểm thưởng — hoặc **miễn phí** nếu đã nhặt **Bùa Gợi Ý**.
-- **Không loại học sinh sớm & Cướp lượt:** Trả lời sai chỉ tạm đóng cửa phòng (các đội khác có thể **cướp lượt** nếu bật). Đội sai vẫn giữ nguyên số mảnh mật mã đã thu thập.
-- **Vòng Đỉnh Cao — Mở Cổng Kho Báu:** Khi gom đủ 3 / 4 / 5 mảnh mật mã (tùy cỡ mê cung Nhỏ / Vừa / Lớn) và mở đường tới tâm **👑 Cổng Kho Báu**, đội giải câu khóa cuối và **giải thích lập luận** để mở tung kho báu giành chiến thắng!
+- **Chế độ chơi linh hoạt:** **Cả lớp** (hợp tác giữ đuốc) hoặc **2 / 3 / 4 đội đối kháng** xuất phát ở các góc đối xứng công bằng.
+- **Cài đặt Mật mã & Manh mối riêng:** Trong khung **✎ Câu hỏi & Mật mã**, giáo viên đặt **Mật mã kho báu** (có thể là **từ, cụm từ tiếng Việt hoặc dãy số**, VD: `PYTHAGORE`, `2025`, `QUANG HOP`, `H2O`…) cùng **danh sách Manh mối** xoay quanh mật mã đó (hỗ trợ công thức KaTeX `$...$`).
+- **Mở phòng Chìa Khóa (🔑) tìm manh mối:** Khi trả lời đúng ở phòng **🔑**, đội nhận điểm thưởng và mở lộ **Manh mối tiếp theo** trong sổ manh mối (nếu đã mở hết manh mối cài sẵn sẽ tự hé lộ thêm ký tự của mật mã!). Ngoài ra còn có **💎 Rương Vàng (+50đ)** và **💡 Bùa Gợi Ý miễn phí**.
+- **Đoán mật mã ở Cổng Kho Báu (👑) BẤT CỨ LÚC NÀO:** Ở mọi lượt đi, đội có quyền bấm thẳng ô **👑 Cổng Kho Báu** ở trung tâm bản đồ (hoặc nút `👑 Đoán mật mã` / phím `G`) để đoán mật mã ngay!
+  - Đoán càng sớm (khi còn ít manh mối mở ra), điểm thưởng càng lớn (`250đ + 40đ × số manh mối chưa mở`).
+  - Không phân biệt chữ hoa/thường hay dấu tiếng Việt; có tùy chọn yêu cầu giải thích lập luận trước khi mở tung Kho Báu.
+  - Đoán sai chỉ mất lượt hiện tại (chế độ Cả lớp mất 1 đuốc), **không loại học sinh khỏi cuộc chơi**.
+- **Gợi ý 50/50 (`H`) & Cướp lượt:** Khi gặp câu hỏi khó có thể dùng Gợi ý 50/50 (trừ 30đ thưởng hoặc miễn phí nếu có Bùa 💡); trả lời sai ở chế độ đội cho phép đội khác cướp lượt.
 
 ## Câu hỏi & Nhập đề Word (.docx)
 
@@ -21,14 +24,14 @@ Chạy hoàn toàn trên trình duyệt — không cần tài khoản, không c�
 ## Cách dùng nhanh
 
 1. Mở `index.html` bằng Chrome hoặc Edge → bấm **🧭 VÀO GAME** (hoặc `Enter`).
-2. Bấm **✎ Câu hỏi** → **📄 Nhập file Word (.docx)** (hoặc kéo-thả file Word vào khung) → bấm tab **👁 Xem trước** kiểm tra công thức → **Lưu**.
+2. Bấm **✎ Câu hỏi & Mật mã** → nhập **Mật mã kho báu** & **Manh mối các phòng 🔑** ở cột bên phải, bấm **📄 Nhập file Word (.docx)** (hoặc kéo-thả file Word) → xem trước KaTeX → **Lưu**.
 3. Chọn **Cả lớp / 2 / 3 / 4 đội** và kích cỡ mê cung (**Nhỏ / Vừa / Lớn**) → **🧭 Bắt đầu thám hiểm!** Nhấn `F` để chiếu toàn màn hình.
 
 **Phím tắt giáo viên:**
-- Chọn phòng: `← ↑ → ↓` di chuyển, `Enter`/`Space` vào phòng.
-- Trả lời: `A`–`D` hoặc `1`–`4` · Đúng/Sai: `1`/`2` · Trả lời ngắn: `Enter` xem đáp án, `1` đúng, `2` sai · `H` dùng Gợi ý.
-- Cướp lượt: `1`–`4` chọn đội, `0` không ai cướp · Cổng Kho Báu: `1`/`Enter` xác nhận giải thích thuyết phục, `2` chưa giải thích được.
-- Chung: `Space` tiếp tục · `E` mở khung nhập đề · `F` toàn màn hình · `M` tắt tiếng.
+- Chọn phòng: `← ↑ → ↓` di chuyển, `Enter`/`Space` vào phòng · `G` mở **👑 Cổng Kho Báu** đoán mật mã ngay.
+- Trả lời: `A`–`D` hoặc `1`–`4` · Đúng/Sai: `1`/`2` · Trả lời ngắn: `Enter` xem đáp án, `1` đúng, `2` sai · `H` dùng Gợi ý 50/50.
+- Cướp lượt: `1`–`4` chọn đội, `0` không ai cướp · Hộp Cổng Kho Báu: `Enter` xác nhận mật mã, `Esc` quay lại; khi đoán đúng: `1`/`Enter` mở kho báu, `2` chưa giải thích được.
+- Chung: `Space` tiếp tục · `E` mở khung soạn đề & cài đặt mật mã · `F` toàn màn hình · `M` tắt tiếng.
 
 > Dữ liệu câu hỏi, ảnh và cài đặt được lưu **riêng cho game này** trong trình duyệt (`localStorage` key `me-cung-tri-thuc.v1` + `IndexedDB` `me-cung-tri-thuc`), không xung đột với các game khác và không gửi lên máy chủ nào.
 

@@ -321,11 +321,81 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
 @keyframes spIn{from{opacity:0;transform:translateY(30px) scale(.92)}to{opacity:1;transform:none}}
 @keyframes spPulse{0%,100%{box-shadow:0 8px 0 #b45309,0 0 0 4px #fff,0 0 0 0 rgba(253,224,71,.7)}50%{box-shadow:0 8px 0 #b45309,0 0 0 4px #fff,0 0 0 18px rgba(253,224,71,0)}}
 
+.clue-panel{
+  background:rgba(15,23,42,.82);border:2px solid rgba(251,191,36,.35);border-radius:16px;
+  padding:10px 12px;color:#e2e8f0;font-size:13.5px;display:flex;flex-direction:column;gap:8px;
+}
+.clue-head{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.clue-head b{color:#fde047;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase}
+.clue-zoom{border:0;background:rgba(251,191,36,.18);color:#fef08a;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:800}
+.clue-zoom:hover{background:rgba(251,191,36,.32)}
+.code-tiles{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.code-tiles.lg{justify-content:center;gap:8px;margin:10px 0 12px;padding:12px 14px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px}
+.ctile{
+  min-width:24px;height:28px;padding:0 5px;border-radius:7px;display:grid;place-items:center;
+  font-weight:900;font-size:14px;background:rgba(2,6,23,.7);border:2px solid rgba(251,191,36,.42);color:#94a3b8;
+}
+.code-tiles.lg .ctile{min-width:44px;height:52px;font-size:26px;border-radius:12px;background:#0f172a;color:#94a3b8;border:3px solid #f59e0b}
+.ctile.rev,.code-tiles.lg .ctile.rev{background:linear-gradient(180deg,#fef08a,#f59e0b);border-color:#fde047;color:#1c1917;box-shadow:0 0 12px rgba(251,191,36,.5)}
+.ctile.sp,.code-tiles.lg .ctile.sp{min-width:14px;background:transparent;border:0;box-shadow:none}
+.code-tiles.lg .ctile.sp{min-width:24px}
+.clue-meta{font-size:12px;color:#94a3b8;font-weight:700}
+.clue-list{display:flex;flex-direction:column;gap:6px;max-height:190px;overflow:auto}
+.clue-item{background:rgba(255,255,255,.07);border-left:3px solid #fbbf24;border-radius:8px;padding:6px 8px;line-height:1.45;font-size:13px;color:#f8fafc}
+.clue-item b{color:#fde047;margin-right:4px}
+.clue-empty{color:#94a3b8;font-style:italic;font-size:12.5px}
+
+/* Hộp manh mối mới mở trong thẻ kết quả câu hỏi */
+.clue-unlock{
+  margin-top:8px;padding:10px 14px;border-radius:14px;
+  background:linear-gradient(90deg,#fffbeb,#fef3c7);border:2px solid #f59e0b;color:#78350f;
+  font-size:clamp(15px,1.45vw,25px);font-weight:700;
+}
+.clue-unlock .cu-lbl{display:inline-block;background:#f59e0b;color:#1c1917;font-weight:900;border-radius:8px;padding:1px 8px;margin-right:6px;font-size:.85em}
+
+/* Hộp Giải Mã Cổng Kho Báu & Xem Manh Mối */
+.v-card{width:min(880px,100%);text-align:left}
+.v-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.v-head h2{margin:0;font-size:clamp(22px,2.4vw,38px);font-weight:900;color:#0f172a}
+.v-team{color:#fff;background:var(--tc);font-weight:900;border-radius:12px;padding:4px 14px;font-size:clamp(14px,1.3vw,22px)}
+.v-bonus{margin-left:auto;background:#fef3c7;border:2px solid #f59e0b;color:#92400e;font-weight:900;border-radius:12px;padding:4px 12px;font-size:clamp(13px,1.15vw,19px)}
+.v-clues{background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;padding:12px 14px;margin:10px 0 14px;max-height:34vh;overflow:auto}
+.v-clues h3{margin:0 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:#64748b}
+.v-clue{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #f59e0b;border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:clamp(15px,1.4vw,23px);line-height:1.45;font-weight:600}
+.v-clue:last-child{margin-bottom:0}
+.v-clue b{color:#b45309;margin-right:6px}
+.v-form{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.v-input{
+  flex:1 1 260px;border:3px solid #f59e0b;border-radius:16px;padding:10px 16px;
+  font:inherit;font-weight:900;font-size:clamp(17px,1.7vw,26px);letter-spacing:.05em;
+  text-transform:uppercase;color:#0f172a;background:#fffbeb;
+}
+.v-input:focus{outline:none;border-color:#2563eb;background:#fff;box-shadow:0 0 0 4px rgba(59,130,246,.2)}
+.v-note{margin-top:8px;font-size:14px;color:#475569;font-weight:600}
+.v-fb{margin-top:12px;border-radius:16px;padding:12px 16px;border:3px solid #e2e8f0;font-weight:800;font-size:clamp(15px,1.45vw,24px);line-height:1.45}
+.v-fb.ok{background:#f0fdf4;border-color:#4ade80;color:#166534}
+.v-fb.bad{background:#fef2f2;border-color:#f87171;color:#991b1b}
+.v-fb .v-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:10px}
+.end-secret{display:inline-block;margin:0 auto 14px;background:#fef3c7;border:2px solid #f59e0b;color:#78350f;border-radius:14px;padding:6px 18px;font-weight:900;font-size:clamp(15px,1.4vw,24px);letter-spacing:.05em}
+
+/* Bổ sung style cho trường Mật mã & Manh mối trong Modal cài đặt QB */
+.qb-right .field textarea{width:100%;box-sizing:border-box;border:2px solid #cbd5e1;border-radius:10px;padding:8px 10px;font:inherit;font-size:13.5px;line-height:1.45;resize:vertical;min-height:105px;background:#fff}
+.qb-right .field textarea:focus{outline:none;border-color:#3b82f6}
+.qb-secret-row{display:flex;gap:6px;align-items:center}
+.qb-secret-row input{flex:1;font-weight:800;letter-spacing:.04em}
+.qb-eye{border:2px solid #cbd5e1;background:#f8fafc;border-radius:10px;padding:6px 10px;font-weight:800;font-size:13px;white-space:nowrap;cursor:pointer}
+.qb-eye:hover{background:#e2e8f0}
+.qb-mini{font-size:12px;color:#64748b;margin-top:3px;line-height:1.4}
+
+.abtn.vault{background:linear-gradient(180deg,#fde047,#f59e0b);color:#1c1917;box-shadow:0 4px 0 #b45309}
+.chip.btn-chip{cursor:pointer}
+.chip.btn-chip:hover{background:rgba(245,158,11,.35)}
+
 @media (max-width:920px){
   #stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding:8px 10px 84px;gap:8px}
   #sidebar{flex-direction:row;overflow-x:auto;overflow-y:hidden;padding-bottom:4px}
   .tcard{min-width:210px;flex:0 0 auto}
-  .legend{display:none}
+  .clue-panel,.legend{display:none}
   .answers{grid-template-columns:1fr}
   .brand .txt{display:none}
 }
@@ -337,11 +407,11 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
   <div class="brand"><span class="logo">🧭</span><span class="txt">MÊ CUNG TRI THỨC</span></div>
   <div class="progress">
     <span id="qCounter" class="chip">Lượt 0/0</span>
-    <span id="codeChip" class="chip gold">🔑 Mật mã: 0/4</span>
+    <button id="codeChip" type="button" class="chip gold btn-chip" title="Bấm để xem phóng to các manh mối mật mã đã mở">🔑 Manh mối: 0/4</button>
     <span id="torchChip" class="chip torch hidden">🔥 Đuốc: 5</span>
   </div>
   <div class="tools">
-    <button id="btnEdit" class="tool" title="Soạn câu hỏi, nhập file Word (.docx), cài đặt (E)">✎ Câu hỏi</button>
+    <button id="btnEdit" class="tool" title="Soạn câu hỏi, cài đặt mật mã, nhập file Word (.docx) (E)">✎ Câu hỏi &amp; Mật mã</button>
     <button id="btnMute" class="tool" title="Bật/tắt âm thanh (M)">🔊</button>
     <button id="btnFull" class="tool" title="Toàn màn hình (F)">⛶</button>
   </div>
@@ -381,11 +451,55 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
 <div id="flash"></div>
 <div id="vignette"></div>
 
+<!-- Hộp Giải Mã Cổng Kho Báu (mở bất cứ lúc nào khi bấm ô Cổng Kho Báu hoặc phím G) -->
+<div id="vaultModal" class="overlay hidden">
+  <div class="card v-card">
+    <div class="v-head">
+      <h2>👑 GIẢI MÃ CỔNG KHO BÁU</h2>
+      <span id="vTeam" class="v-team"></span>
+      <span id="vBonus" class="v-bonus">🏆 +250đ</span>
+    </div>
+    <div id="vTiles" class="code-tiles lg"></div>
+    <div id="vMeta" class="v-note" style="text-align:center;margin:0 0 10px"></div>
+    <div class="v-clues">
+      <h3>📜 Manh mối mật mã đã mở</h3>
+      <div id="vClueList"></div>
+    </div>
+    <form id="vaultForm" class="v-form" autocomplete="off">
+      <input id="vaultInput" class="v-input" type="text" placeholder="Nhập mật mã (từ / số)…" spellcheck="false">
+      <button id="btnVaultSubmit" type="submit" class="big go">🔓 Mở khóa<kbd>Enter</kbd></button>
+      <button id="btnVaultCancel" type="button" class="big ghost">↩ Quay lại<kbd>Esc</kbd></button>
+    </form>
+    <div class="v-note">Không phân biệt chữ hoa/thường hay dấu tiếng Việt. Đoán sai sẽ mất lượt này (không bị loại khỏi cuộc chơi).</div>
+    <div id="vFeedback" class="v-fb hidden"></div>
+  </div>
+</div>
+
+<!-- Hộp phóng to Sổ Manh Mối cho cả lớp xem rõ -->
+<div id="clueModal" class="overlay hidden">
+  <div class="card v-card">
+    <div class="v-head">
+      <h2>📜 SỔ MANH MỐI MẬT MÃ</h2>
+      <span id="cmCount" class="v-bonus">0/4 manh mối</span>
+    </div>
+    <div id="cmTiles" class="code-tiles lg"></div>
+    <div id="cmMeta" class="v-note" style="text-align:center;margin:0 0 10px"></div>
+    <div class="v-clues">
+      <h3>Các gợi ý đã giải mã từ phòng 🔑</h3>
+      <div id="cmList"></div>
+    </div>
+    <div class="actions">
+      <button id="btnClueGuess" type="button" class="big go">👑 Đoán mật mã ngay!</button>
+      <button id="btnClueClose" type="button" class="big ghost">Đóng (Esc)</button>
+    </div>
+  </div>
+</div>
+
 <!-- Màn hình bắt đầu -->
 <div id="intro" class="overlay">
   <div class="card">
     <h1 class="title">🧭 MÊ CUNG TRI THỨC</h1>
-    <p class="subtitle">Cuộc đua giải mã — Vượt phòng thử thách, gom mảnh mật mã và mở Cổng Kho Báu!</p>
+    <p class="subtitle">Cuộc đua giải mã — Mở phòng chìa khóa thu thập manh mối và bấm Cổng Kho Báu đoán mật mã bất cứ lúc nào!</p>
     <div class="segs">
       <div class="seg" id="modeSeg">
         <button data-v="1">Cả lớp</button>
@@ -394,19 +508,19 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
         <button data-v="4">4 đội</button>
       </div>
       <div class="seg" id="sizeSeg">
-        <button data-v="sm">Nhỏ (7×5 · 3 mảnh)</button>
-        <button data-v="md">Vừa (7×7 · 4 mảnh)</button>
-        <button data-v="lg">Lớn (9×7 · 5 mảnh)</button>
+        <button data-v="sm">Nhỏ (7×5)</button>
+        <button data-v="md">Vừa (7×7)</button>
+        <button data-v="lg">Lớn (9×7)</button>
       </div>
     </div>
     <div id="rules" class="rules"></div>
     <div id="introStats" class="stats"></div>
     <div class="actions">
       <button id="btnStart" class="big go">🧭 Bắt đầu thám hiểm!</button>
-      <button id="btnEdit2" class="big ghost">✎ Nhập đề Word / Cài đặt</button>
+      <button id="btnEdit2" class="big ghost">✎ Nhập đề Word / Cài đặt mật mã</button>
     </div>
     <div class="keys">
-      Phím tắt giáo viên: <kbd>←↑→↓</kbd> chọn phòng · <kbd>Enter</kbd> mở phòng · <kbd>A</kbd>–<kbd>D</kbd> hoặc <kbd>1</kbd>–<kbd>4</kbd> trả lời · <kbd>H</kbd> dùng gợi ý · <kbd>Space</kbd> tiếp tục · <kbd>E</kbd> nhập đề Word · <kbd>F</kbd> toàn màn hình · <kbd>M</kbd> tắt tiếng
+      Phím tắt giáo viên: <kbd>←↑→↓</kbd> chọn phòng · <kbd>Enter</kbd> mở phòng · <kbd>G</kbd> đoán mật mã Kho Báu · <kbd>A</kbd>–<kbd>D</kbd> / <kbd>1</kbd>–<kbd>4</kbd> trả lời · <kbd>H</kbd> gợi ý 50/50 · <kbd>Space</kbd> tiếp · <kbd>E</kbd> cài đặt · <kbd>F</kbd> toàn màn hình
     </div>
   </div>
 </div>
@@ -417,11 +531,12 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
     <div id="endMedal" class="medal">🏆</div>
     <h1 id="endTitle" class="title">MỞ TUNG KHO BÁU!</h1>
     <p id="endSub" class="subtitle"></p>
+    <div id="endSecret" class="end-secret"></div>
     <table id="endTable" class="res-table"></table>
     <div class="actions">
       <button id="btnAgain" class="big go">↻ Mê cung mới</button>
       <button id="btnMap" class="big">🗺 Xem bản đồ</button>
-      <button id="btnEdit3" class="big ghost">✎ Đổi bộ câu hỏi</button>
+      <button id="btnEdit3" class="big ghost">✎ Đổi đề &amp; mật mã</button>
     </div>
   </div>
 </div>
@@ -533,8 +648,15 @@ const SIZES = {
   md: { w: 7, h: 7, shards: 4, shardsQuad: 3, label: "Vừa (7×7)" },
   lg: { w: 9, h: 7, shards: 5, shardsQuad: 3, label: "Lớn (9×7)" }
 };
+const DEFAULT_SECRET = "PYTHAGORE";
+const DEFAULT_CLUES = String.raw`Tên một nhà toán học, triết học nổi tiếng người Hy Lạp cổ đại.
+Định lí mang tên ông liên hệ ba cạnh tam giác vuông: $a^2 + b^2 = c^2$.
+Các bộ ba số $(3;\,4;\,5)$ và $(6;\,8;\,10)$ gắn liền với định lí này.
+Từ khóa gồm 9 chữ cái, bắt đầu bằng chữ P và kết thúc bằng chữ E.`;
 const DEF = {
   mode: 2, size: "md", time: 30, torches: 5,
+  secretCode: DEFAULT_SECRET,
+  secretClues: DEFAULT_CLUES,
   steal: true, allowHint: true, requireExplain: true,
   shuffleQ: false, shuffleA: false,
   teamNames: TEAM_DEF.map(t => t.name)
@@ -547,11 +669,82 @@ const coordLabel = (x, y) => "ABCDEFGHIJKLM"[x] + (y + 1);
 const ROOM_INFO = {
   normal: { ico: "🚪", name: "Phòng thử thách", pts: 100 },
   start:  { ico: "🚩", name: "Trạm xuất phát", pts: 100 },
-  shard:  { ico: "🔑", name: "Phòng Mảnh Mật Mã", pts: 120 },
+  shard:  { ico: "🔑", name: "Phòng Chìa Khóa (Manh mối)", pts: 120 },
   chest:  { ico: "💎", name: "Phòng Rương Vàng", pts: 150 },
   hint:   { ico: "💡", name: "Phòng Bùa Gợi Ý", pts: 100 },
-  vault:  { ico: "👑", name: "CỔNG KHO BÁU", pts: 200 }
+  vault:  { ico: "👑", name: "CỔNG KHO BÁU", pts: 250 }
 };
+
+/* =================== Xử lý Mật Mã & Manh Mối =================== */
+function normalizeSecret(s, stripSpaces = false) {
+  let t = String(s || "").trim().toLowerCase()
+    .replace(/đ/g, "d")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ");
+  if (stripSpaces) t = t.replace(/[\s\-_.,:;]+/g, "");
+  return t;
+}
+function isSecretMatch(guess, answer) {
+  const g1 = normalizeSecret(guess, false), a1 = normalizeSecret(answer, false);
+  if (!g1 || !a1) return false;
+  if (g1 === a1) return true;
+  return normalizeSecret(guess, true) === normalizeSecret(answer, true);
+}
+function buildSecretState() {
+  const raw = String(S.secretCode || "").trim() || DEFAULT_SECRET;
+  const chars = [...raw.toUpperCase()];
+  const letterIdx = [];
+  chars.forEach((ch, idx) => { if (!/\s/.test(ch)) letterIdx.push(idx); });
+  const isDigitsOnly = /^\d+$/.test(raw.replace(/\s+/g, ""));
+  const words = raw.split(/\s+/).filter(Boolean);
+  let clues = String(S.secretClues || "").replace(/\r/g, "").split("\n").map(l => l.trim()).filter(Boolean);
+  if (!clues.length) {
+    clues = [
+      isDigitsOnly
+        ? `Mật mã là một dãy gồm ${letterIdx.length} chữ số.`
+        : `Mật mã là một ${words.length > 1 ? `cụm gồm ${words.length} từ (${letterIdx.length} ký tự)` : `từ gồm ${letterIdx.length} ký tự`}.`,
+      `Ký tự đầu tiên của mật mã là “${chars[letterIdx[0]]}”.`,
+      letterIdx.length > 1 ? `Ký tự cuối cùng của mật mã là “${chars[letterIdx[letterIdx.length - 1]]}”.` : `Mật mã chỉ gồm 1 ký tự duy nhất.`
+    ];
+  }
+  const summary = isDigitsOnly
+    ? `Dãy ${letterIdx.length} chữ số`
+    : (words.length > 1 ? `${words.length} từ (${letterIdx.length} ký tự)` : `Từ gồm ${letterIdx.length} ký tự`);
+  return { raw, chars, letterIdx, isDigitsOnly, summary, clues };
+}
+function renderCodeTiles(revealAll = false) {
+  const sec = G.secret;
+  return sec.chars.map((ch, idx) => {
+    if (/\s/.test(ch)) return `<span class="ctile sp"></span>`;
+    const show = revealAll || G.revealedPos.has(idx);
+    return `<span class="ctile ${show ? "rev" : ""}">${show ? esc(ch) : "?"}</span>`;
+  }).join("");
+}
+function vaultBonusPoints() {
+  const remaining = Math.max(0, G.secret.clues.length - G.unlockedClues.length);
+  return 250 + remaining * 40;
+}
+function unlockNextClue() {
+  const sec = G.secret;
+  if (G.unlockedClues.length < sec.clues.length) {
+    const idx = G.unlockedClues.length;
+    const text = sec.clues[idx];
+    G.unlockedClues.push({ num: idx + 1, text });
+    return { kind: "clue", num: idx + 1, text };
+  }
+  // Đã mở hết manh mối cài sẵn -> hé lộ thêm 1 ký tự của mật mã
+  const hidden = sec.letterIdx.filter(i => !G.revealedPos.has(i));
+  if (hidden.length > 1) {
+    const pos = pick(hidden);
+    G.revealedPos.add(pos);
+    const ord = sec.letterIdx.indexOf(pos) + 1;
+    const ch = sec.chars[pos];
+    const text = `Hé lộ ký tự vị trí số ${ord} của mật mã là **${ch}**!`;
+    G.unlockedClues.push({ num: G.unlockedClues.length + 1, text: `Ký tự thứ ${ord} của mật mã là “${ch}”.` });
+    return { kind: "letter", ord, ch, text };
+  }
+  return null;
+}
 
 /* =================== Âm thanh Web Audio chủ đề Mê Cung Cổ Đại =================== */
 const SFX = {
@@ -719,15 +912,18 @@ function generateMaze(sizeKey) {
   if (ptr < ordered.length) { setSymType(ordered[ptr][0], ordered[ptr][1], "chest"); ptr++; }
   if (ptr < ordered.length) { setSymType(ordered[ptr][0], ordered[ptr][1], "hint"); ptr++; }
 
-  // Sinh mã số mật mã ngẫu nhiên gồm `shards` chữ số khác nhau (1..9)
-  const digits = shuffle(["1", "2", "3", "4", "5", "6", "7", "8", "9"]).slice(0, shards);
-  return { w, h, cx, cy, shardsNeeded: shards, code: digits, cells };
+  return { w, h, cx, cy, shardsNeeded: shards, cells };
 }
 
 /* =================== Trạng thái trò chơi =================== */
 const G = {
-  phase: "intro", // intro | starting | pick | question | resolving | steal | result | moving | end | map | editor
+  phase: "intro", // intro | starting | pick | question | resolving | steal | result | moving | vault | end | map | editor
   maze: null,
+  secret: null,       // { raw, chars, letterIdx, isDigitsOnly, summary, clues[] }
+  unlockedClues: [],  // [{ num, text }]
+  revealedPos: new Set(),
+  vaultState: null,   // null | "input" | "explain" | "wrong"
+  vaultPendingPts: 0,
   rounds: [],
   idx: 0,
   teams: [],
@@ -762,6 +958,11 @@ function newGame() {
   G.rounds = QB.buildRounds(parsed.questions, { shuffleQ: S.shuffleQ, shuffleA: S.shuffleA });
   G.idx = 0;
   G.maze = generateMaze(S.size);
+  G.secret = buildSecretState();
+  G.unlockedClues = [];
+  G.revealedPos = new Set();
+  G.vaultState = null;
+  G.vaultPendingPts = 0;
   const starts = startPosFor(S.mode, G.maze.w, G.maze.h);
   G.teams = starts.map(([x, y], i) => {
     G.maze.cells[y][x].type = "start";
@@ -772,7 +973,7 @@ function newGame() {
       pos: { x, y },
       visited: new Set([keyOf(x, y)]),
       shardCells: new Set(),
-      shards: [],
+      keys: 0,
       hints: 0,
       score: 0,
       correct: 0,
@@ -784,12 +985,13 @@ function newGame() {
   G.torches = S.torches;
   G.target = null; G.cursor = null; G.frontier = [];
   G.winner = null;
+  $("#vaultModal").classList.add("hidden");
+  $("#clueModal").classList.add("hidden");
   renderAll();
 }
 
 function getFrontier(teamIdx) {
   const t = G.teams[teamIdx], m = G.maze;
-  const enoughShards = t.shards.length >= m.shardsNeeded;
   const seen = new Set(), out = [];
   for (const k of t.visited) {
     const [x, y] = k.split(",").map(Number);
@@ -801,29 +1003,20 @@ function getFrontier(teamIdx) {
       const nk = keyOf(nx, ny);
       if (seen.has(nk)) continue;
       const nc = m.cells[ny][nx];
-      if (nc.type === "vault") {
-        if (enoughShards) { seen.add(nk); out.push({ x: nx, y: ny, vaultOpen: true }); }
-      } else if (!t.visited.has(nk)) {
+      if (nc.type !== "vault" && !t.visited.has(nk)) {
         seen.add(nk);
         out.push({ x: nx, y: ny, vaultOpen: false });
       }
     }
   }
-  // Phòng ngừa cực hiếm: đã mở sạch bản đồ non-vault -> luôn cho mở Cổng Kho Báu
-  if (!out.length) out.push({ x: m.cx, y: m.cy, vaultOpen: true });
   return out;
 }
 
-/* =================== Vẽ Bảng Đội & Bản Đồ Mê Cung SVG =================== */
+/* =================== Vẽ Bảng Đội, Sổ Manh Mối & Bản Đồ Mê Cung SVG =================== */
 function renderSidebar() {
-  const m = G.maze;
   const cards = G.teams.map((t, idx) => {
-    const active = G.phase !== "intro" && G.phase !== "end" && G.phase !== "map" && idx === G.cur;
-    const dim = teamMode() && G.phase !== "intro" && G.phase !== "end" && G.phase !== "map" && !active;
-    const ready = t.shards.length >= m.shardsNeeded;
-    const slots = Array.from({ length: m.shardsNeeded }, (_, k) =>
-      `<span class="shard-slot ${k < t.shards.length ? "got" : ""}">${k < t.shards.length ? t.shards[k] : "?"}</span>`
-    ).join("");
+    const active = !["intro", "end", "map"].includes(G.phase) && idx === G.cur;
+    const dim = teamMode() && !["intro", "end", "map"].includes(G.phase) && !active;
     return `<div class="tcard ${active ? "active" : ""} ${dim ? "dim" : ""}" style="--tc:${t.c}">
       <div class="tcard-top">
         <span class="tdot"></span>
@@ -832,25 +1025,42 @@ function renderSidebar() {
       </div>
       <div class="tmeta">
         <span class="pts">⭐ ${t.score}đ</span>
+        <span>🔑 ${t.keys}</span>
         <span>✔ ${t.correct}/${t.answered}</span>
         ${S.allowHint ? `<span>💡 ${t.hints}</span>` : ""}
       </div>
-      <div class="shards-row">
-        ${slots}
-        ${ready ? `<span class="shard-ready">👑 Đủ mã!</span>` : ""}
-      </div>
     </div>`;
   }).join("");
+
+  const sec = G.secret;
+  const clueHtml = G.unlockedClues.length
+    ? G.unlockedClues.map(cl => `<div class="clue-item"><b>#${cl.num}</b>${rich(cl.text)}</div>`).join("")
+    : `<div class="clue-empty">Mở phòng chìa khóa 🔑 để tìm gợi ý mật mã — hoặc bấm 👑 Cổng Kho Báu để đoán ngay!</div>`;
+
+  const cluePanel = `<div class="clue-panel">
+    <div class="clue-head">
+      <b>🔐 Mật mã kho báu</b>
+      <button type="button" class="clue-zoom" id="btnZoomClues">🔍 Phóng to</button>
+    </div>
+    <div class="code-tiles">${renderCodeTiles(G.phase === "end" || G.phase === "map")}</div>
+    <div class="clue-meta">${esc(sec.summary)} · Đã mở ${Math.min(G.unlockedClues.length, sec.clues.length)}/${sec.clues.length} manh mối</div>
+    <div class="clue-list">${clueHtml}</div>
+  </div>`;
+
   const legend = `<div class="legend">
     <b>Chú giải mê cung</b>
     <div class="leg-grid">
-      <span>🔑 Mảnh mật mã</span>
-      <span>👑 Cổng kho báu</span>
+      <span>🔑 Phòng manh mối</span>
+      <span>👑 Đoán mật mã</span>
       <span>💎 Rương (+50đ)</span>
       <span>💡 Bùa gợi ý</span>
     </div>
   </div>`;
-  $("#sidebar").innerHTML = cards + legend;
+  const sb = $("#sidebar");
+  sb.innerHTML = cards + cluePanel + legend;
+  QB.renderMath(sb);
+  const zm = $("#btnZoomClues");
+  if (zm) zm.onclick = openClueModal;
 }
 
 function cellCenter(x, y) {
@@ -875,9 +1085,9 @@ function renderMaze() {
 
   let out = `<defs>
     <radialGradient id="vaultGrad" cx="50%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.48"/>
-      <stop offset="70%" stop-color="#78350f" stop-opacity="0.42"/>
-      <stop offset="100%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.52"/>
+      <stop offset="70%" stop-color="#78350f" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#1e293b" stop-opacity="0.92"/>
     </radialGradient>
   </defs>`;
 
@@ -896,10 +1106,12 @@ function renderMaze() {
       const k = keyOf(x, y);
       const px = PAD + x * CELL, py = PAD + y * CELL;
       const seen = anySeen.has(k);
-      const f = canMap.get(k);
+      const isVault = c.type === "vault";
+      // Cổng Kho Báu LUÔN có thể bấm bất cứ lúc nào khi đang chọn phòng!
+      const canClick = G.phase === "pick" && (canMap.has(k) || isVault);
       const isCur = G.phase === "pick" && G.cursor && G.cursor.x === x && G.cursor.y === y;
-      const cls = ["mz-cell", f ? "can" : "", f && f.vaultOpen ? "vault-open" : "", isCur ? "cur" : ""].filter(Boolean).join(" ");
-      const style = f ? `style="--act:${cur.c};--act-bg:${cur.bg};--act-hi:${cur.hi}"` : "";
+      const cls = ["mz-cell", canClick ? "can" : "", isVault && G.phase === "pick" ? "vault-open" : "", isCur ? "cur" : ""].filter(Boolean).join(" ");
+      const style = canClick ? `style="--act:${cur.c};--act-bg:${cur.bg};--act-hi:${cur.hi}"` : "";
 
       // Chấm sở hữu đội (tối đa 4 góc nhỏ phía dưới ô)
       const owners = G.teams.filter(t => t.visited.has(k));
@@ -909,10 +1121,9 @@ function renderMaze() {
 
       // Biểu tượng trong ô
       let ico = "";
-      if (c.type === "vault") {
-        const ready = cur && cur.shards.length >= m.shardsNeeded;
+      if (isVault) {
         ico = `<text class="mz-ico" x="${px + CELL / 2}" y="${py + CELL / 2 - 7}">👑</text>
-               <text class="mz-vault-txt" x="${px + CELL / 2}" y="${py + CELL - 14}">${ready ? "MỞ KHÓA!" : `🔒 ${cur ? cur.shards.length : 0}/${m.shardsNeeded}`}</text>`;
+               <text class="mz-vault-txt" x="${px + CELL / 2}" y="${py + CELL - 14}">ĐOÁN MÃ!</text>`;
       } else if (c.type === "shard") {
         const curGot = cur && cur.shardCells.has(k);
         ico = `<text class="mz-ico ${curGot ? "dim" : ""}" x="${px + CELL / 2}" y="${py + CELL / 2}">🔑</text>`;
@@ -925,8 +1136,8 @@ function renderMaze() {
       }
 
       out += `<g class="${cls}" data-x="${x}" data-y="${y}" ${style}>
-        <rect class="mz-floor ${seen ? "seen" : ""} ${c.type === "vault" ? "vault" : ""}" x="${px}" y="${py}" width="${CELL}" height="${CELL}" rx="4"/>
-        ${f ? `<rect class="mz-hl" x="${px + 5}" y="${py + 5}" width="${CELL - 10}" height="${CELL - 10}" rx="10"/>` : ""}
+        <rect class="mz-floor ${seen ? "seen" : ""} ${isVault ? "vault" : ""}" x="${px}" y="${py}" width="${CELL}" height="${CELL}" rx="4"/>
+        ${canClick ? `<rect class="mz-hl" x="${px + 5}" y="${py + 5}" width="${CELL - 10}" height="${CELL - 10}" rx="10"/>` : ""}
         <text class="mz-lbl" x="${px + 7}" y="${py + 15}">${coordLabel(x, y)}</text>
         ${ico}
         ${dots}
@@ -948,7 +1159,7 @@ function renderMaze() {
   }
   out += `<g class="mz-walls">${walls}</g>`;
 
-  // Quân cờ các đội (nếu nhiều đội đứng chung ô -> xếp gọn tránh đè)
+  // Quân cờ các đội
   const grouped = {};
   G.teams.forEach(t => {
     const k = keyOf(t.pos.x, t.pos.y);
@@ -966,7 +1177,7 @@ function renderMaze() {
     list.forEach((t, idx) => {
       const p = cellCenter(t.pos.x, t.pos.y);
       const tx = p.cx + off[idx][0], ty = p.cy + off[idx][1];
-      const isActive = idx >= 0 && t.i === G.cur && G.phase === "pick";
+      const isActive = t.i === G.cur && G.phase === "pick";
       tokens += `<g class="mz-token" transform="translate(${tx},${ty})">
         ${isActive ? `<circle r="21" fill="none" stroke="#fde047" stroke-width="3" opacity=".85"/>` : ""}
         <circle class="outer" r="15" fill="${t.c}"/>
@@ -981,10 +1192,9 @@ function renderMaze() {
 function updateCounters() {
   const started = !["intro", "starting"].includes(G.phase);
   $("#qCounter").textContent = `Lượt ${Math.min(G.idx + (started ? 1 : 0), G.rounds.length)}/${G.rounds.length}`;
-  const t = curTeam();
-  $("#codeChip").textContent = teamMode()
-    ? `🔑 Cần ${G.maze.shardsNeeded} mảnh mở kho báu`
-    : `🔑 Mật mã: ${t ? t.shards.length : 0}/${G.maze.shardsNeeded}`;
+  const totalClues = G.secret ? G.secret.clues.length : 0;
+  const shownClues = Math.min(G.unlockedClues.length, totalClues);
+  $("#codeChip").textContent = `🔑 Manh mối: ${shownClues}/${totalClues}`;
   const tc = $("#torchChip");
   tc.classList.toggle("hidden", teamMode());
   tc.textContent = `🔥 Đuốc: ${G.torches}/${S.torches}`;
@@ -1000,7 +1210,7 @@ function renderActionBar(toast = "") {
   const bar = $("#actionbar");
   if (G.phase === "map") {
     bar.style.setProperty("--tc", "#fde047");
-    bar.innerHTML = `<span class="who">🗺 Toàn cảnh Mê Cung Tri Thức (Mã kho báu: ${G.maze.code.join(" - ")})</span>
+    bar.innerHTML = `<span class="who">🗺 Toàn cảnh Mê Cung Tri Thức · 🔐 Mật mã: ${esc(G.secret.raw.toUpperCase())}</span>
       <button class="abtn blue" data-act="back">↩ Kết quả</button>
       <button class="abtn" data-act="again">↻ Mê cung mới</button>`;
     bar.classList.remove("hidden");
@@ -1010,35 +1220,38 @@ function renderActionBar(toast = "") {
   const t = curTeam();
   const c = G.cursor ? G.maze.cells[G.cursor.y][G.cursor.x] : null;
   const rInfo = c ? ROOM_INFO[c.type] : ROOM_INFO.normal;
-  const ready = t.shards.length >= G.maze.shardsNeeded;
   bar.style.setProperty("--tc", t.c);
   bar.innerHTML = `${toast ? `<div class="toast">${esc(toast)}</div>` : ""}
     <span class="who" style="color:${t.c}">🧭 ${esc(t.name)}</span>
-    <span class="sub">${ready ? "👑 Đủ mật mã — Hãy tiến tới Cổng Kho Báu!" : `Chọn 1 phòng phát sáng (${G.frontier.length} lựa chọn)`}</span>
-    ${c ? `<button class="abtn" data-act="enter">⚡ Vào ô ${coordLabel(c.x, c.y)} (${rInfo.ico} ${rInfo.name})</button>` : ""}`;
+    <span class="sub">Chọn phòng (${G.frontier.length}) hoặc bấm 👑 Cổng Kho Báu đoán mã</span>
+    ${c ? `<button class="abtn blue" data-act="enter">⚡ Vào ô ${coordLabel(c.x, c.y)} (${rInfo.ico})</button>` : ""}
+    <button class="abtn vault" data-act="vault">👑 Đoán mật mã (+${vaultBonusPoints()}đ)</button>`;
   bar.classList.remove("hidden");
 }
 
 /* =================== Màn hình Intro & Khởi chạy =================== */
 function showIntro() {
   G.phase = "intro";
-  hideCard(); $("#actionbar").classList.add("hidden");
+  hideCard();
+  $("#vaultModal").classList.add("hidden");
+  $("#clueModal").classList.add("hidden");
+  $("#actionbar").classList.add("hidden");
   document.querySelectorAll("#modeSeg button").forEach(b => b.classList.toggle("on", +b.dataset.v === S.mode));
   document.querySelectorAll("#sizeSeg button").forEach(b => b.classList.toggle("on", b.dataset.v === S.size));
   const sz = SIZES[S.size] || SIZES.md;
+  const sec = G.secret || buildSecretState();
   const rules = [
-    ["🗺", `Chọn một phòng kế tiếp phát sáng trong mê cung để mở thử thách. Đọc tên ô (ví dụ <b>B2</b>) để giáo viên bấm hoặc dùng phím mũi tên.`],
-    ["🔑", `Vượt qua các <b>Phòng Mảnh Mật Mã</b> để gom đủ <b>${sz.shards} mảnh</b> (ghép thành mật mã mở khóa). Có thể đi ăn thêm <b>💎 Rương Vàng (+50đ)</b> hoặc <b>💡 Bùa Gợi Ý</b>!`],
-    ["💡", S.allowHint ? `Khi gặp câu khó có thể bấm <b>Dùng Gợi Ý</b> (loại 50/50 phương án sai) — miễn phí nếu có Bùa, hoặc trừ 30 điểm thưởng.` : `Chế độ thử thách cao: không dùng gợi ý.`],
-    ["👑", `Đủ <b>${sz.shards} mảnh mật mã</b> và tiến vào <b>Cổng Kho Báu</b> ở giữa để giải câu khóa cuối${S.requireExplain ? " & giải thích lập luận" : ""} giành chiến thắng!`]
+    ["🗺", `Chọn một phòng kế tiếp phát sáng trong mê cung để mở câu hỏi. Đọc tên ô (ví dụ <b>B2</b>) để giáo viên bấm hoặc dùng phím mũi tên.`],
+    ["🔑", `Vượt qua các <b>Phòng Chìa Khóa 🔑</b> để mở từng <b>Manh mối gợi ý xoay quanh Mật mã kho báu</b> (${sec.summary}, ${sec.clues.length} manh mối).`],
+    ["👑", `<b>Quyền đoán bất cứ lúc nào:</b> Ở mọi lượt đi, đội có thể bấm thẳng ô <b>👑 Cổng Kho Báu</b> (hoặc phím <kbd>G</kbd>) để đoán mật mã sớm! Đoán càng sớm thưởng càng lớn (+${250 + sec.clues.length * 40}đ tối đa); đoán sai mất lượt đó.`],
+    ["💡", S.allowHint ? `Gặp câu hỏi khó có thể dùng <b>Gợi ý 50/50</b> (miễn phí nếu nhặt Bùa 💡, hoặc trừ 30 điểm thưởng).` : `Chế độ thử thách cao: không dùng gợi ý 50/50.`]
   ];
   $("#rules").innerHTML = rules.map(([i, t]) => `<div class="rule"><span class="ico">${i}</span><span>${t}</span></div>`).join("");
   const qs = QB.parse(QB.getText()).questions;
-  const warnLow = G.rounds.length < sz.shards + 1 ? ` · ⚠ Nên thêm câu hỏi` : "";
   $("#introStats").innerHTML =
-    `<span class="stat">📝 ${qs.length} câu · ${G.rounds.length} lượt${warnLow}</span>` +
+    `<span class="stat">📝 ${qs.length} câu · ${G.rounds.length} lượt</span>` +
     `<span class="stat">🗺 Mê cung ${sz.w}×${sz.h}</span>` +
-    `<span class="stat">🔑 Cần ${sz.shards} mảnh mật mã</span>` +
+    `<span class="stat">🔐 Mật mã bí mật: ${esc(sec.summary)} · ${sec.clues.length} manh mối</span>` +
     `<span class="stat">⏱ ${S.time > 0 ? S.time + " giây/câu" : "Không giới hạn giờ"}</span>`;
   $("#endScreen").classList.add("hidden");
   $("#intro").classList.remove("hidden");
@@ -1063,9 +1276,8 @@ function enterPick(toast = "") {
   if (G.idx >= G.rounds.length) return endGame("out");
   G.phase = "pick";
   G.frontier = getFrontier(G.cur);
-  // Ưu tiên đặt con trỏ mặc định vào Cổng Kho Báu nếu đã mở, hoặc phòng Mảnh Mật Mã
-  const best = G.frontier.find(f => f.vaultOpen)
-    || G.frontier.find(f => G.maze.cells[f.y][f.x].type === "shard" && !curTeam().shardCells.has(keyOf(f.x, f.y)))
+  // Ưu tiên đặt con trỏ mặc định vào phòng Chìa Khóa 🔑 gần nhất chưa lấy
+  const best = G.frontier.find(f => G.maze.cells[f.y][f.x].type === "shard" && !curTeam().shardCells.has(keyOf(f.x, f.y)))
     || G.frontier[0];
   G.cursor = best ? { x: best.x, y: best.y } : null;
   renderAll();
@@ -1075,28 +1287,166 @@ function enterPick(toast = "") {
 
 function selectRoom(x, y) {
   if (G.phase !== "pick") return;
-  const k = keyOf(x, y);
   const cell = G.maze.cells[y][x];
-  const f = G.frontier.find(o => o.x === x && o.y === y);
-  if (!f) {
-    if (cell.type === "vault") {
-      SFX.wrong();
-      renderActionBar(`🔒 Cổng Kho Báu đang khóa! Cần đủ ${G.maze.shardsNeeded} mảnh mật mã (hiện có ${curTeam().shards.length}).`);
-    }
+  // Quyền chọn ô Cổng Kho Báu để đoán mật mã BẤT CỨ LÚC NÀO!
+  if (cell.type === "vault") {
+    openVaultModal();
     return;
   }
+  const f = G.frontier.find(o => o.x === x && o.y === y);
+  if (!f) return;
   G.target = { x, y };
   G.cursor = { x, y };
   A.init();
-  if (cell.type === "vault") {
-    SFX.vaultAlarm();
-    banner("MỞ CỔNG KHO BÁU!", "#fde047", true);
-    setTimeout(showQuestion, 700);
+  SFX.click();
+  showQuestion();
+}
+
+/* =================== Hộp Giải Mã Cổng Kho Báu & Phóng To Manh Mối =================== */
+function renderClueListHtml() {
+  if (!G.unlockedClues.length) {
+    return `<div class="v-clue" style="color:#64748b;font-style:italic">Chưa có manh mối nào được mở — bạn đang thử vận may đoán sớm để ăn điểm thưởng tối đa!</div>`;
+  }
+  return G.unlockedClues.map(cl => `<div class="v-clue"><b>Manh mối #${cl.num}:</b>${rich(cl.text)}</div>`).join("");
+}
+
+function openVaultModal() {
+  if (G.phase !== "pick") return;
+  A.init();
+  SFX.vaultAlarm();
+  G.phase = "vault";
+  G.vaultState = "input";
+  G.vaultPendingPts = vaultBonusPoints();
+  $("#clueModal").classList.add("hidden");
+  $("#actionbar").classList.add("hidden");
+
+  const t = curTeam();
+  const vt = $("#vTeam");
+  vt.textContent = t.name;
+  vt.style.setProperty("--tc", t.c);
+  $("#vBonus").textContent = `🏆 Thưởng: +${G.vaultPendingPts}đ`;
+  $("#vTiles").innerHTML = renderCodeTiles(false);
+  $("#vMeta").textContent = `Định dạng mật mã: ${G.secret.summary} · Đã mở ${Math.min(G.unlockedClues.length, G.secret.clues.length)}/${G.secret.clues.length} manh mối`;
+  const listEl = $("#vClueList");
+  listEl.innerHTML = renderClueListHtml();
+  QB.renderMath(listEl);
+
+  const inp = $("#vaultInput");
+  inp.value = "";
+  inp.disabled = false;
+  $("#btnVaultSubmit").disabled = false;
+  $("#btnVaultCancel").classList.remove("hidden");
+  $("#vaultForm").classList.remove("hidden");
+  $("#vFeedback").classList.add("hidden");
+  $("#vaultModal").classList.remove("hidden");
+  setTimeout(() => inp.focus(), 60);
+}
+
+function closeVaultModal() {
+  if (G.phase !== "vault" || G.vaultState !== "input") return;
+  $("#vaultModal").classList.add("hidden");
+  G.vaultState = null;
+  G.phase = "pick";
+  renderAll();
+  renderActionBar();
+}
+
+function submitVaultGuess(e) {
+  if (e) e.preventDefault();
+  if (G.phase !== "vault" || G.vaultState !== "input") return;
+  const rawGuess = $("#vaultInput").value.trim();
+  if (!rawGuess) { $("#vaultInput").focus(); return; }
+
+  const t = curTeam();
+  const fb = $("#vFeedback");
+  $("#vaultInput").disabled = true;
+  $("#btnVaultSubmit").disabled = true;
+  $("#btnVaultCancel").classList.add("hidden");
+
+  if (isSecretMatch(rawGuess, G.secret.raw)) {
+    SFX.shard(); flash("gold", .55);
+    $("#vTiles").innerHTML = renderCodeTiles(true);
+    if (S.requireExplain) {
+      G.vaultState = "explain";
+      fb.className = "v-fb ok";
+      fb.innerHTML = `👑 CHÍNH XÁC! Mật mã là <b>${esc(G.secret.raw.toUpperCase())}</b>! Hãy mời ${esc(t.name)} giải thích lập luận trước khi mở tung Kho Báu:
+        <div class="v-actions">
+          <button type="button" class="big ok" data-vact="win">🏆 Giải thích thuyết phục — MỞ KHO BÁU! (+${G.vaultPendingPts}đ)<kbd>1</kbd></button>
+          <button type="button" class="big ghost" data-vact="hold">💬 Chưa giải thích được (+80đ)<kbd>2</kbd></button>
+        </div>`;
+      fb.classList.remove("hidden");
+    } else {
+      G.vaultState = "explain";
+      fb.className = "v-fb ok";
+      fb.innerHTML = `👑 CHÍNH XÁC TUYỆT ĐỐI! Mật mã là <b>${esc(G.secret.raw.toUpperCase())}</b> (+${G.vaultPendingPts}đ)!
+        <div class="v-actions">
+          <button type="button" class="big go" data-vact="win">🏆 MỞ TUNG KHO BÁU!<kbd>Enter</kbd></button>
+        </div>`;
+      fb.classList.remove("hidden");
+    }
   } else {
-    SFX.click();
-    showQuestion();
+    SFX.wrong(); flash("red", .6);
+    G.vaultState = "wrong";
+    if (!teamMode()) { G.torches = Math.max(0, G.torches - 1); updateCounters(); }
+    const penaltyMsg = !teamMode()
+      ? `Mất 1 đuốc (còn 🔥 ${G.torches}/${S.torches}).`
+      : `${esc(t.name)} mất lượt đi này (vẫn giữ nguyên điểm và lượt sau tiếp tục chơi).`;
+    fb.className = "v-fb bad";
+    fb.innerHTML = `🔒 Mật mã “${esc(rawGuess)}” chưa chính xác! Cổng Kho Báu vẫn đóng.<br>${penaltyMsg}
+      <div class="v-actions">
+        <button type="button" class="big" data-vact="miss">Tiếp tục mê cung →<kbd>Space</kbd></button>
+      </div>`;
+    fb.classList.remove("hidden");
   }
 }
+
+async function finishVaultAction(act) {
+  if (G.phase !== "vault") return;
+  const t = curTeam();
+  $("#vaultModal").classList.add("hidden");
+  G.vaultState = null;
+
+  if (act === "win") {
+    t.score += G.vaultPendingPts;
+    t.pos = { x: G.maze.cx, y: G.maze.cy };
+    t.visited.add(keyOf(G.maze.cx, G.maze.cy));
+    G.winner = t.i;
+    G.phase = "moving";
+    renderAll();
+    const el = document.querySelector(`.mz-cell[data-x="${G.maze.cx}"][data-y="${G.maze.cy}"]`);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      FX.burst(r.left + r.width / 2, r.top + r.height / 2, { n: 110, colors: ["#fde047", "#f59e0b", "#ffffff", "#38bdf8", "#4ade80"], speed: 580, shape: "mix" });
+    }
+    SFX.victory();
+    banner("KHO BÁU ĐÃ MỞ!", "#fde047");
+    await sleep(1150);
+    endGame("vault");
+  } else if (act === "hold") {
+    t.score += 80;
+    if (teamMode()) G.cur = (G.cur + 1) % G.teams.length;
+    enterPick("💬 Đúng mật mã nhưng chưa giải thích được (+80đ). Cổng tạm đóng!");
+  } else {
+    // Đoán sai: không trừ câu hỏi trong ngân hàng, chỉ chuyển lượt (hoặc hết đuốc ở chế độ Cả lớp)
+    if (!teamMode() && G.torches <= 0) return endGame("lose");
+    if (teamMode()) G.cur = (G.cur + 1) % G.teams.length;
+    enterPick(`🔒 ${t.name} đoán mật mã chưa đúng — mất lượt!`);
+  }
+}
+
+function openClueModal() {
+  if (!G.secret || ["intro", "editor"].includes(G.phase)) return;
+  const sec = G.secret;
+  $("#cmCount").textContent = `${Math.min(G.unlockedClues.length, sec.clues.length)}/${sec.clues.length} manh mối`;
+  $("#cmTiles").innerHTML = renderCodeTiles(G.phase === "end" || G.phase === "map");
+  $("#cmMeta").textContent = `Định dạng mật mã: ${sec.summary}`;
+  const listEl = $("#cmList");
+  listEl.innerHTML = renderClueListHtml();
+  QB.renderMath(listEl);
+  $("#btnClueGuess").classList.toggle("hidden", G.phase !== "pick");
+  $("#clueModal").classList.remove("hidden");
+}
+function closeClueModal() { $("#clueModal").classList.add("hidden"); }
 
 /* =================== Thẻ Câu Hỏi (KaTeX + Gợi ý + Cướp lượt) =================== */
 function hideCard() { $("#qcard").classList.add("hidden"); $("#qback").classList.add("hidden"); }
@@ -1129,11 +1479,14 @@ function showQuestion() {
   $("#qRoom").textContent = `${rInfo.ico} Ô ${coordLabel(cell.x, cell.y)} · ${rInfo.name}`;
   setTurnChip(teamMode() ? "Lượt: " + curTeam().name : "", curTeam().c);
 
-  // Banner mật mã khi mở Cổng Kho Báu
+  // Banner đặc biệt khi vào Phòng Chìa Khóa 🔑
   const vb = $("#vaultBanner");
-  if (isVault) {
-    vb.innerHTML = `<span>👑 ĐÃ GHÉP ĐỦ MẬT MÃ! Trả lời đúng câu khóa cuối${S.requireExplain ? " và giải thích lập luận" : ""} để mở tung Kho Báu!</span>
-      <span class="vault-code-pill">${curTeam().shards.map(ch => `<span>${esc(ch)}</span>`).join("")}</span>`;
+  const nextClueNum = Math.min(G.unlockedClues.length + 1, G.secret.clues.length);
+  if (cell.type === "shard" && !curTeam().shardCells.has(keyOf(cell.x, cell.y))) {
+    const label = G.unlockedClues.length < G.secret.clues.length
+      ? `🔑 PHÒNG CHÌA KHÓA! Trả lời đúng để mở Manh mối #${nextClueNum}/${G.secret.clues.length} xoay quanh mật mã kho báu!`
+      : `🔑 PHÒNG CHÌA KHÓA! Trả lời đúng để hé lộ thêm 1 ký tự bí mật trong mật mã kho báu!`;
+    vb.innerHTML = `<span>${label}</span>`;
     vb.classList.remove("hidden");
   } else vb.classList.add("hidden");
 
@@ -1336,10 +1689,17 @@ function showResult(cls, title, body, buttons) {
 }
 
 /* =================== Xử lý kết quả trả lời =================== */
+function clueBannerHtml(unlocked) {
+  if (!unlocked) return "";
+  if (unlocked.kind === "clue") {
+    return `<div class="clue-unlock"><span class="cu-lbl">🔑 MANH MỐI #${unlocked.num}</span>${rich(unlocked.text)}</div>`;
+  }
+  return `<div class="clue-unlock"><span class="cu-lbl">🔓 HÉ LỘ KÝ TỰ</span>Ký tự vị trí số <b>${unlocked.ord}</b> của mật mã là <b>“${esc(unlocked.ch)}”</b>!</div>`;
+}
+
 function settle(ok, choice) {
   const t = actorTeam();
   const cell = G.maze.cells[G.target.y][G.target.x];
-  const isVault = cell.type === "vault";
   t.answered++;
 
   if (ok) {
@@ -1347,38 +1707,25 @@ function settle(ok, choice) {
     revealAnswerButtons();
     G.phase = "result";
 
-    // Trường hợp đặc biệt: Cổng Kho Báu
-    if (isVault) {
-      SFX.shard(); flash("gold", .45);
-      if (S.requireExplain) {
-        showResult("okb", `👑 ${t.name} trả lời ĐÚNG câu khóa cuối! Hãy giải thích lập luận để mở Kho Báu:`, answerBody(true),
-          `<button class="big ok" data-act="vaultWin">🏆 Giải thích thuyết phục — MỞ KHO BÁU! (+200đ)<kbd>1</kbd></button>
-           <button class="big ghost" data-act="vaultHold">💬 Chưa giải thích được (+60đ)<kbd>2</kbd></button>`);
-      } else {
-        showResult("okb", `👑 CHÍNH XÁC! ${t.name} đã giải mã thành công Cổng Kho Báu (+200đ)!`, answerBody(true),
-          `<button class="big go" data-act="vaultWin">🏆 MỞ TUNG KHO BÁU!<kbd>Enter</kbd></button>`);
-      }
-      return;
-    }
-
     // Nếu là đội CƯỚP LƯỢT trả lời đúng
     if (G.stealing) {
-      let pts = 80, extra = "";
+      let pts = 80, extra = "", unlocked = null;
       t.score += pts;
       const k = keyOf(cell.x, cell.y);
-      if (cell.type === "shard" && !t.shardCells.has(k) && t.shards.length < G.maze.shardsNeeded) {
-        const ch = G.maze.code[t.shards.length];
-        t.shards.push(ch); t.shardCells.add(k);
-        extra = ` + nhận 🔑 Mảnh mật mã [${ch}]!`;
+      if (cell.type === "shard" && !t.shardCells.has(k)) {
+        t.keys++; t.shardCells.add(k);
+        unlocked = unlockNextClue();
+        extra = unlocked ? ` + mở khóa 🔑 Manh mối!` : ` + nhận 🔑 Chìa khóa!`;
         SFX.shard();
       } else SFX.unlock();
-      renderSidebar();
-      showResult("okb", `⚡ ${t.name} CƯỚP LƯỢT THÀNH CÔNG! (+${pts}đ${extra})`, answerBody(true),
+      renderSidebar(); updateCounters();
+      const body = clueBannerHtml(unlocked) + (answerBody(true) ? "\n" + answerBody(true) : "");
+      showResult("okb", `⚡ ${t.name} CƯỚP LƯỢT THÀNH CÔNG! (+${pts}đ${extra})`, body,
         `<button class="big" data-act="next">Tiếp tục mê cung →<kbd>Space</kbd></button>`);
       return;
     }
 
-    // Đội đang đi trả lời đúng phòng thường / mảnh / rương / bùa
+    // Đội đang đi trả lời đúng phòng thường / chìa khóa / rương / bùa
     const penalty = (G.hintUsed && !G.hintFree) ? 30 : 0;
     let pts = ROOM_INFO[cell.type].pts;
     if (cell.type === "chest" && cell.chestTaken) pts = 100;
@@ -1387,11 +1734,13 @@ function settle(ok, choice) {
 
     let rewardText = `+${pts}đ`;
     const k = keyOf(cell.x, cell.y);
-    let sfxKind = "unlock";
-    if (cell.type === "shard" && !t.shardCells.has(k) && t.shards.length < G.maze.shardsNeeded) {
-      const ch = G.maze.code[t.shards.length];
-      t.shards.push(ch); t.shardCells.add(k);
-      rewardText += ` · 🔑 Thu được Mảnh Mật Mã [${ch}] (${t.shards.length}/${G.maze.shardsNeeded})`;
+    let sfxKind = "unlock", unlocked = null;
+    if (cell.type === "shard" && !t.shardCells.has(k)) {
+      t.keys++; t.shardCells.add(k);
+      unlocked = unlockNextClue();
+      rewardText += unlocked
+        ? (unlocked.kind === "clue" ? ` · 🔑 Mở Manh mối #${unlocked.num}/${G.secret.clues.length}` : ` · 🔓 Hé lộ ký tự mật mã!`)
+        : ` · 🔑 Thu được 1 Chìa khóa`;
       sfxKind = "shard";
     } else if (cell.type === "chest" && !cell.chestTaken) {
       cell.chestTaken = true;
@@ -1410,7 +1759,9 @@ function settle(ok, choice) {
     else if (sfxKind === "hint") SFX.hint();
     else SFX.unlock();
 
-    showResult("okb", `✔ CHÍNH XÁC! ${t.name} mở cửa ô ${coordLabel(cell.x, cell.y)} (${rewardText})`, answerBody(true),
+    renderSidebar(); updateCounters();
+    const body = clueBannerHtml(unlocked) + (answerBody(true) ? "\n" + answerBody(true) : "");
+    showResult("okb", `✔ CHÍNH XÁC! ${t.name} mở cửa ô ${coordLabel(cell.x, cell.y)} (${rewardText})`, body,
       `<button class="big go" data-act="advance">🧭 Tiến vào phòng ${coordLabel(cell.x, cell.y)}!<kbd>Space</kbd></button>`);
     return;
   }
@@ -1432,9 +1783,7 @@ function settle(ok, choice) {
   revealAnswerButtons();
   G.phase = "result";
   let title;
-  if (isVault) {
-    title = `🔒 ${timeout ? "Hết giờ!" : "Chưa chính xác!"} Cổng Kho Báu tạm đóng — ${t.name} vẫn giữ đủ ${t.shards.length} mảnh mật mã cho lượt sau!`;
-  } else if (!teamMode()) {
+  if (!teamMode()) {
     G.torches = Math.max(0, G.torches - 1);
     updateCounters();
     title = `${timeout ? "⏱ Hết giờ!" : "✘ Chưa chính xác!"} Cửa phòng chưa mở — mất 1 đuốc (còn 🔥 ${G.torches}/${S.torches}).`;
@@ -1478,7 +1827,6 @@ async function advanceIntoRoom() {
   t.pos = { x, y };
   renderAll();
 
-  // Hiệu ứng hạt nổ ngay tại phòng vừa mở
   const el = document.querySelector(`.mz-cell[data-x="${x}"][data-y="${y}"]`);
   if (el) {
     const r = el.getBoundingClientRect();
@@ -1488,40 +1836,13 @@ async function advanceIntoRoom() {
       : [t.c, "#fde047", "#ffffff"];
     FX.burst(cx, cy, { n: cell.type === "shard" ? 65 : 40, colors: cols, speed: 380, shape: "mix" });
   }
-  if (cell.type === "shard" && t.shards.length >= G.maze.shardsNeeded) {
-    banner("ĐỦ MẬT MÃ! HƯỚNG VỀ KHO BÁU!", "#fde047", true);
+  if (cell.type === "shard" && G.unlockedClues.length === G.secret.clues.length) {
+    banner("ĐÃ MỞ HẾT MANH MỐI! BẤM 👑 ĐOÁN MÃ!", "#fde047", true);
     await sleep(1100);
   } else {
     await sleep(650);
   }
   proceedTurn();
-}
-
-async function resolveVault(opened) {
-  if (G.phase !== "result") return;
-  const t = curTeam();
-  if (opened) {
-    t.score += 200;
-    t.pos = { x: G.maze.cx, y: G.maze.cy };
-    t.visited.add(keyOf(G.maze.cx, G.maze.cy));
-    G.winner = t.i;
-    G.phase = "moving";
-    hideCard();
-    renderAll();
-    const el = document.querySelector(`.mz-cell[data-x="${G.maze.cx}"][data-y="${G.maze.cy}"]`);
-    if (el) {
-      const r = el.getBoundingClientRect();
-      FX.burst(r.left + r.width / 2, r.top + r.height / 2, { n: 100, colors: ["#fde047", "#f59e0b", "#ffffff", "#38bdf8", "#4ade80"], speed: 560, shape: "mix" });
-    }
-    SFX.victory();
-    banner("KHO BÁU ĐÃ MỞ!", "#fde047");
-    await sleep(1150);
-    endGame("vault");
-  } else {
-    t.score += 60;
-    renderSidebar();
-    proceedTurn("💬 Cổng Kho Báu tạm đóng (+60đ). Lượt kế tiếp vẫn có thể thử lại!");
-  }
 }
 
 function isOver() {
@@ -1540,35 +1861,39 @@ function proceedTurn(toast = "") {
 
 /* =================== Kết thúc trận =================== */
 function endGame(type) {
-  G.phase = "end"; stopTimer(); hideCard(); $("#actionbar").classList.add("hidden");
+  G.phase = "end"; stopTimer(); hideCard();
+  $("#vaultModal").classList.add("hidden");
+  $("#clueModal").classList.add("hidden");
+  $("#actionbar").classList.add("hidden");
   renderAll();
   const sorted = G.teams.slice().sort((a, b) => {
     if (G.winner !== null) { if (a.i === G.winner) return -1; if (b.i === G.winner) return 1; }
-    return (b.shards.length - a.shards.length) || (b.score - a.score) || (b.correct - a.correct);
+    return (b.score - a.score) || (b.keys - a.keys) || (b.correct - a.correct);
   });
-  const head = `<tr><th>Đội</th><th>🔑 Mật mã</th><th>⭐ Điểm</th><th>🚪 Phòng</th><th>✔ Đúng</th><th>Chính xác</th></tr>`;
+  const head = `<tr><th>Đội</th><th>⭐ Điểm</th><th>🔑 Chìa khóa</th><th>🚪 Phòng</th><th>✔ Đúng</th><th>Chính xác</th></tr>`;
   const row = t => `<td>${esc(t.name)}${t.i === G.winner ? " 👑" : ""}</td>
-    <td>${t.shards.length}/${G.maze.shardsNeeded}</td>
     <td>${t.score}</td>
+    <td>${t.keys}</td>
     <td>${t.rooms}</td>
     <td>${t.correct}/${t.answered}</td>
     <td>${t.answered ? Math.round(t.correct / t.answered * 100) : 0}%</td>`;
   $("#endTable").innerHTML = head + sorted.map(t => `<tr style="--tc:${t.c}">${row(t)}</tr>`).join("");
+  $("#endSecret").textContent = `🔐 Mật mã kho báu: ${G.secret.raw.toUpperCase()}`;
 
   let medal, title, sub, win = false;
   if (type === "vault") {
     const w = G.teams[G.winner];
     medal = "🏆"; title = teamMode() ? `${w.name.toUpperCase()} VÔ ĐỊCH!` : "MỞ TUNG KHO BÁU!";
-    sub = `${w.name} đã ghép đủ mật mã [${G.maze.code.join("-")}] và giải mã thành công Cổng Kho Báu!`;
+    sub = `${w.name} đã giải mã chính xác mật mã kho báu và giành chiến thắng!`;
     win = true;
   } else if (type === "lose") {
     medal = "🕯️"; title = "ĐUỐC ĐÃ TẮT…";
-    sub = `Cả lớp đã thu được ${G.teams[0].shards.length}/${G.maze.shardsNeeded} mảnh mật mã và đạt ${G.teams[0].score} điểm. Ôn bài và thám hiểm lại nhé!`;
+    sub = `Cả lớp đã mở được ${G.unlockedClues.length}/${G.secret.clues.length} manh mối và đạt ${G.teams[0].score} điểm. Ôn bài và thám hiểm lại nhé!`;
   } else {
     const top = sorted[0];
-    const tie = teamMode() && sorted.length > 1 && sorted[0].shards.length === sorted[1].shards.length && sorted[0].score === sorted[1].score;
+    const tie = teamMode() && sorted.length > 1 && sorted[0].score === sorted[1].score && sorted[0].keys === sorted[1].keys;
     if (tie) { medal = "🤝"; title = "HÒA NHAU!"; sub = "Hết bộ câu hỏi — các đội dẫn đầu ngang tài ngang sức!"; }
-    else { medal = teamMode() ? "🏆" : "⭐"; title = teamMode() ? `${top.name.toUpperCase()} DẪN ĐẦU!` : "HOÀN THÀNH CHẶNG THÁM HIỂM!"; sub = `Hết bộ câu hỏi — ${top.name} thu được ${top.shards.length}/${G.maze.shardsNeeded} mảnh mật mã (${top.score} điểm).`; win = teamMode(); }
+    else { medal = teamMode() ? "🏆" : "⭐"; title = teamMode() ? `${top.name.toUpperCase()} DẪN ĐẦU!` : "HOÀN THÀNH CHẶNG THÁM HIỂM!"; sub = `Hết bộ câu hỏi — ${top.name} dẫn đầu với ${top.score} điểm (${top.keys} chìa khóa).`; win = teamMode(); }
   }
   $("#endMedal").textContent = medal;
   $("#endTitle").textContent = title;
@@ -1586,15 +1911,29 @@ function flash(kind = "gold", s = .5) {
   (kind === "red" ? $("#vignette") : $("#flash")).animate([{ opacity: 0 }, { opacity: s }, { opacity: 0 }], { duration: kind === "red" ? 550 : 320, easing: "ease-out" });
 }
 
-/* =================== Modal Soạn câu hỏi & Cài đặt (dùng chung QB) =================== */
+/* =================== Modal Soạn câu hỏi & Cài đặt Mật mã (dùng chung QB) =================== */
 const SETTINGS_HTML = `
+  <div class="sec">🔐 Cài đặt Mật mã &amp; Manh mối phòng Chìa Khóa (🔑)</div>
+  <div class="field">
+    <label>Mật mã Cổng Kho Báu (từ, cụm từ hoặc dãy số)</label>
+    <div class="qb-secret-row">
+      <input data-k="secretCode" type="text" maxlength="40" placeholder="VD: PYTHAGORE, 2025, QUANG HOP, H2O…">
+      <button type="button" class="qb-eye" data-eye="1" title="Ẩn/hiện mật mã khi chiếu trước lớp">🙈 Ẩn</button>
+    </div>
+    <div class="qb-mini">Không phân biệt chữ hoa/thường hay dấu tiếng Việt khi học sinh đoán.</div>
+  </div>
+  <div class="field">
+    <label>Manh mối xoay quanh mật mã ở các phòng 🔑 (mỗi dòng 1 gợi ý)</label>
+    <textarea data-k="secretClues" spellcheck="false" placeholder="Mỗi dòng là 1 manh mối sẽ mở dần khi đội vượt qua phòng 🔑 (hỗ trợ công thức $...$)."></textarea>
+    <div class="qb-mini">Mở phòng 🔑 sẽ mở lần lượt từ dòng 1 → cuối (nếu mở hết sẽ tự hé lộ từng ký tự của mật mã). Để trống sẽ tự tạo gợi ý từ mật mã.</div>
+  </div>
   <div class="sec">Cài đặt Mê Cung Tri Thức</div>
   <div class="two">
     <div class="field"><label>Chế độ</label>
       <select data-k="mode"><option value="1">Cả lớp (hợp tác)</option><option value="2">2 đội</option><option value="3">3 đội</option><option value="4">4 đội</option></select>
     </div>
     <div class="field"><label>Kích cỡ mê cung</label>
-      <select data-k="size"><option value="sm">Nhỏ (7×5 · 3 mảnh)</option><option value="md">Vừa (7×7 · 4 mảnh)</option><option value="lg">Lớn (9×7 · 5 mảnh)</option></select>
+      <select data-k="size"><option value="sm">Nhỏ (7×5)</option><option value="md">Vừa (7×7)</option><option value="lg">Lớn (9×7)</option></select>
     </div>
     <div class="field"><label>Giây / câu (0 = không giới hạn)</label><input data-k="time" type="number" min="0" max="900"></div>
     <div class="field"><label>Số đuốc (chế độ Cả lớp)</label><input data-k="torches" type="number" min="1" max="15"></div>
@@ -1602,28 +1941,46 @@ const SETTINGS_HTML = `
   <div class="field"><label>Tên các đội</label><div class="tnames">${TEAM_DEF.map((d, i) => `<input data-t="${i}" maxlength="24" style="--tc:${d.c}">`).join("")}</div></div>
   <label class="chk"><input data-k="steal" type="checkbox"> Cho phép cướp lượt khi trả lời sai (nhiều đội)</label>
   <label class="chk"><input data-k="allowHint" type="checkbox"> Cho phép dùng Gợi ý 50/50 (−30đ hoặc dùng Bùa)</label>
-  <label class="chk"><input data-k="requireExplain" type="checkbox"> Yêu cầu giải thích lập luận ở Cổng Kho Báu</label>
+  <label class="chk"><input data-k="requireExplain" type="checkbox"> Yêu cầu giải thích lập luận khi đoán đúng mật mã</label>
   <label class="chk"><input data-k="shuffleQ" type="checkbox"> Trộn thứ tự câu hỏi</label>
   <label class="chk"><input data-k="shuffleA" type="checkbox"> Trộn thứ tự phương án A–D</label>`;
 
 function openEditor() {
   if (["resolving", "moving"].includes(G.phase)) return;
-  if (["pick", "question", "result", "steal"].includes(G.phase) && !confirm("Dừng trận đang chơi để soạn / nhập câu hỏi?")) return;
+  if (["pick", "question", "result", "steal", "vault"].includes(G.phase) && !confirm("Dừng trận đang chơi để soạn câu hỏi / cài đặt mật mã?")) return;
   stopTimer(); G.phase = "editor";
-  hideCard(); $("#actionbar").classList.add("hidden");
+  hideCard();
+  $("#vaultModal").classList.add("hidden");
+  $("#clueModal").classList.add("hidden");
+  $("#actionbar").classList.add("hidden");
   $("#intro").classList.add("hidden"); $("#endScreen").classList.add("hidden");
   QB.openEditor({
-    title: "✎ Soạn câu hỏi & cài đặt — Mê Cung Tri Thức",
+    title: "✎ Soạn câu hỏi & Cài đặt Mật mã — Mê Cung Tri Thức",
     settingsHtml: SETTINGS_HTML,
     fill(root) {
-      root.querySelectorAll("[data-k]").forEach(e => { const v = S[e.dataset.k]; if (e.type === "checkbox") e.checked = !!v; else e.value = v; });
+      root.querySelectorAll("[data-k]").forEach(e => {
+        const k = e.dataset.k, v = S[k] !== undefined ? S[k] : DEF[k];
+        if (e.type === "checkbox") e.checked = !!v;
+        else e.value = v;
+      });
       root.querySelectorAll("[data-t]").forEach(e => e.value = S.teamNames[+e.dataset.t] || TEAM_DEF[+e.dataset.t].name);
+      const eye = root.querySelector('[data-eye]');
+      const inp = root.querySelector('[data-k="secretCode"]');
+      if (eye && inp) {
+        eye.onclick = () => {
+          const hide = inp.type === "text";
+          inp.type = hide ? "password" : "text";
+          eye.textContent = hide ? "👁 Hiện" : "🙈 Ẩn";
+        };
+      }
     },
     read(root) {
       const o = { ...S };
       root.querySelectorAll("[data-k]").forEach(e => {
         const k = e.dataset.k;
         if (e.type === "checkbox") o[k] = e.checked;
+        else if (k === "secretCode") o[k] = e.value.trim();
+        else if (k === "secretClues") o[k] = e.value;
         else if (e.tagName === "SELECT") o[k] = k === "size" ? e.value : +e.value;
         else { const v = Math.round(+e.value); o[k] = Number.isFinite(v) ? Math.min(+e.max || 999, Math.max(+e.min || 0, v)) : DEF[k]; }
       });
@@ -1631,11 +1988,13 @@ function openEditor() {
       return o;
     },
     warnings(res, cfg, rounds) {
-      const need = (SIZES[cfg.size] || SIZES.md).shards + 1;
-      return rounds < need ? [`Mê cung cỡ ${(SIZES[cfg.size] || SIZES.md).label} nên có ít nhất ${need} lượt câu hỏi (hiện có ${rounds}).`] : [];
+      const w = [];
+      if (!String(cfg.secretCode || "").trim()) w.push("Chưa nhập Mật mã Cổng Kho Báu (nếu để trống sẽ dùng mặc định PYTHAGORE).");
+      if (rounds < 4) w.push(`Nên có ít nhất 4 lượt câu hỏi để chơi mê cung hấp dẫn hơn (hiện có ${rounds}).`);
+      return w;
     },
     reset(root) { const keep = S; S = { ...DEF, teamNames: DEF.teamNames.slice() }; this.fill(root); S = keep; },
-    onSave(settings) { S = settings; saveS(); },
+    onSave(settings) { S = settings; if (!S.secretCode) S.secretCode = DEFAULT_SECRET; saveS(); },
     onClose() { newGame(); showIntro(); }
   });
 }
@@ -1650,14 +2009,25 @@ $("#mazeSvg").addEventListener("mouseover", e => {
   if (G.phase !== "pick") return;
   const g = e.target.closest(".mz-cell.can"); if (!g) return;
   const x = +g.dataset.x, y = +g.dataset.y;
+  if (G.maze.cells[y][x].type === "vault") return;
   if (!G.cursor || G.cursor.x !== x || G.cursor.y !== y) { G.cursor = { x, y }; renderMaze(); renderActionBar(); }
 });
 $("#actionbar").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   const a = b.dataset.act;
   if (a === "enter" && G.cursor) selectRoom(G.cursor.x, G.cursor.y);
+  else if (a === "vault") openVaultModal();
   else if (a === "back") { $("#actionbar").classList.add("hidden"); $("#endScreen").classList.remove("hidden"); G.phase = "end"; }
   else if (a === "again") { G.phase = "end"; startGame(); }
+});
+$("#codeChip").addEventListener("click", openClueModal);
+$("#btnClueClose").addEventListener("click", closeClueModal);
+$("#btnClueGuess").addEventListener("click", () => { closeClueModal(); openVaultModal(); });
+$("#vaultForm").addEventListener("submit", submitVaultGuess);
+$("#btnVaultCancel").addEventListener("click", closeVaultModal);
+$("#vFeedback").addEventListener("click", e => {
+  const b = e.target.closest("button[data-vact]"); if (!b) return;
+  finishVaultAction(b.dataset.vact);
 });
 $("#btnHint").addEventListener("click", useHint);
 $("#answers").addEventListener("click", e => {
@@ -1672,8 +2042,6 @@ $("#rsFoot").addEventListener("click", e => {
   else if (a === "next") proceedTurn();
   else if (a === "steal") doSteal(+b.dataset.team);
   else if (a === "nosteal") doSteal(null);
-  else if (a === "vaultWin") resolveVault(true);
-  else if (a === "vaultHold") resolveVault(false);
 });
 $("#btnStart").addEventListener("click", startGame);
 $("#btnAgain").addEventListener("click", startGame);
@@ -1689,7 +2057,6 @@ $("#btnFull").addEventListener("click", toggleFull);
 function moveFrontierCursor(dx, dy) {
   if (!G.frontier.length) return;
   if (!G.cursor) { G.cursor = { x: G.frontier[0].x, y: G.frontier[0].y }; renderMaze(); renderActionBar(); return; }
-  // Tìm phòng trong frontier gần nhất theo hướng mũi tên
   let best = null, bestScore = Infinity;
   for (const f of G.frontier) {
     const rx = f.x - G.cursor.x, ry = f.y - G.cursor.y;
@@ -1708,13 +2075,37 @@ function moveFrontierCursor(dx, dy) {
   renderMaze(); renderActionBar();
 }
 
+const clueModalOpen = () => !$("#clueModal").classList.contains("hidden");
+
 addEventListener("keydown", e => {
   if (splashOpen()) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); enterGame(); } return; }
   if (QB.editorOpen()) return;
   if (e.ctrlKey || e.altKey || e.metaKey) return;
   const k = e.key.toLowerCase();
 
+  if (clueModalOpen()) {
+    if (k === "escape") { e.preventDefault(); closeClueModal(); }
+    return;
+  }
+  if (G.phase === "vault") {
+    if (G.vaultState === "input") {
+      if (k === "escape") { e.preventDefault(); closeVaultModal(); }
+      return; // cho phép gõ chữ tự do vào #vaultInput
+    }
+    if (G.vaultState === "explain") {
+      const hasHold = !!document.querySelector('#vFeedback button[data-vact="hold"]');
+      if (k === "1" || k === "enter") { e.preventDefault(); finishVaultAction("win"); return; }
+      if (hasHold && k === "2") { e.preventDefault(); finishVaultAction("hold"); return; }
+      return;
+    }
+    if (G.vaultState === "wrong" && (k === " " || k === "enter" || k === "escape")) {
+      e.preventDefault(); finishVaultAction("miss"); return;
+    }
+    return;
+  }
+
   if (G.phase === "pick") {
+    if (k === "g") { e.preventDefault(); openVaultModal(); return; }
     const mv = { arrowleft: [-1, 0], arrowright: [1, 0], arrowup: [0, -1], arrowdown: [0, 1] }[k];
     if (mv) { e.preventDefault(); moveFrontierCursor(...mv); return; }
     if ((k === "enter" || k === " ") && G.cursor) { e.preventDefault(); selectRoom(G.cursor.x, G.cursor.y); return; }
@@ -1741,12 +2132,6 @@ addEventListener("keydown", e => {
     return;
   }
   if (G.phase === "result") {
-    const vWin = document.querySelector('#rsFoot button[data-act="vaultWin"]');
-    const vHold = document.querySelector('#rsFoot button[data-act="vaultHold"]');
-    if (vWin && vHold) {
-      if (k === "1" || k === "enter") { e.preventDefault(); resolveVault(true); return; }
-      if (k === "2") { e.preventDefault(); resolveVault(false); return; }
-    }
     if (k === " " || k === "enter" || k === "arrowright") {
       e.preventDefault();
       const b = $("#rsFoot button"); if (b) b.click();
