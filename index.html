@@ -50,6 +50,8 @@ button{font:inherit;cursor:pointer}
 .tools{display:flex;gap:8px}
 .tool{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:6px 12px;font-weight:700;font-size:clamp(12px,1vw,17px);white-space:nowrap}
 .tool:hover{background:rgba(255,255,255,.24)}
+.tool.on{background:linear-gradient(135deg,#f59e0b,#d97706);border-color:#fde047;color:#1c1917;box-shadow:0 0 14px rgba(251,191,36,.4)}
+.tool.on:hover{filter:brightness(1.08)}
 
 /* ---------- Bố cục chính: Bảng đội + Mê cung ---------- */
 #stage{
@@ -93,12 +95,12 @@ button{font:inherit;cursor:pointer}
 
 .legend{
   margin-top:auto;background:rgba(15,23,42,.65);border:1px solid rgba(148,163,184,.24);
-  border-radius:16px;padding:10px 12px;color:#cbd5e1;font-size:13px;line-height:1.6;
+  border-radius:16px;padding:9px 12px;color:#cbd5e1;font-size:12.5px;line-height:1.55;
 }
 .legend b{color:#fef08a;display:block;margin-bottom:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px}
+.leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px}
 
-/* ---------- Khung bản đồ Mê cung SVG ---------- */
+/* ---------- Khung bản đồ Mê cung SVG & 3D ---------- */
 #mazeWrap{
   position:relative;display:flex;align-items:center;justify-content:center;
   min-width:0;min-height:0;
@@ -109,12 +111,26 @@ button{font:inherit;cursor:pointer}
   background:radial-gradient(circle at 50% 50%,#1e293b 0%,#0f172a 70%,#090d1a 100%);
   box-shadow:inset 0 0 0 3px rgba(251,191,36,.32),0 20px 50px rgba(2,6,23,.6);
 }
+#maze3d{
+  position:absolute;inset:0;border-radius:22px;overflow:hidden;
+  background:#090f22;cursor:grab;
+  box-shadow:inset 0 0 0 3px rgba(251,191,36,.38),0 20px 50px rgba(2,6,23,.65);
+}
+#camHint{
+  position:absolute;left:14px;bottom:12px;z-index:5;pointer-events:none;
+  background:rgba(9,13,26,.76);color:#e2e8f0;border:1px solid rgba(251,191,36,.3);
+  border-radius:10px;padding:4px 10px;font-size:12px;font-weight:700;backdrop-filter:blur(6px);
+}
+#camHint kbd{background:rgba(255,255,255,.16);border-radius:4px;padding:0 5px;color:#fde047;font-family:inherit}
 .mz-coord{fill:#94a3b8;font:800 16px "Segoe UI",Arial,sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none}
 .mz-wall{stroke:#f59e0b;stroke-width:5.5;stroke-linecap:round;filter:drop-shadow(0 0 3px rgba(245,158,11,.35))}
 .mz-wall-outer{stroke:#fde047;stroke-width:7;stroke-linecap:round}
 .mz-floor{fill:#131c31;stroke:rgba(148,163,184,.12);stroke-width:1}
 .mz-floor.seen{fill:#1e293b}
 .mz-floor.vault{fill:url(#vaultGrad)}
+.mz-floor.ev-trap{fill:#2d121a}
+.mz-floor.ev-lucky{fill:#0f2b22}
+.mz-floor.ev-myst{fill:#1d1638}
 .mz-cell{transition:opacity .2s}
 .mz-cell.can{cursor:pointer}
 .mz-cell.can .mz-hl{
@@ -133,6 +149,10 @@ button{font:inherit;cursor:pointer}
 .mz-cell.can .mz-lbl{fill:#fef08a}
 .mz-ico{font-size:28px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
 .mz-ico.dim{opacity:.42}
+.mz-ico.myst{font-size:26px;filter:drop-shadow(0 0 6px rgba(192,132,252,.85))}
+.mz-ev-sub{font:900 10.5px "Segoe UI",Arial,sans-serif;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:#090d1a;stroke-width:2.8}
+.mz-ev-sub.trap{fill:#fca5a5}
+.mz-ev-sub.lucky{fill:#86efac}
 .mz-vault-txt{fill:#fef08a;font:900 12px "Segoe UI",Arial,sans-serif;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:#0f172a;stroke-width:3}
 .mz-token{transition:transform .45s cubic-bezier(.22,1.25,.36,1);pointer-events:none}
 .mz-token circle.outer{stroke:#fff;stroke-width:2.8;filter:drop-shadow(0 3px 6px rgba(0,0,0,.55))}
@@ -274,29 +294,46 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
 #vignette{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,rgba(239,68,68,0) 45%,rgba(220,38,38,.75) 100%)}
 
 /* Lớp phủ Intro & End */
-.overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(2,6,23,.65);backdrop-filter:blur(5px)}
-.card{width:min(940px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:28px;padding:clamp(18px,2.6vw,38px);text-align:center;box-shadow:0 30px 80px rgba(2,6,23,.55);animation:cardIn2 .38s cubic-bezier(.2,1.3,.4,1)}
+.overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:12px;background:rgba(2,6,23,.65);backdrop-filter:blur(5px)}
+.card{width:min(960px,100%);max-height:calc(100vh - 24px);overflow:auto;background:#fff;border-radius:26px;padding:clamp(14px,2vw,30px);text-align:center;box-shadow:0 30px 80px rgba(2,6,23,.55);animation:cardIn2 .38s cubic-bezier(.2,1.3,.4,1)}
 @keyframes cardIn2{from{transform:translateY(28px) scale(.95);opacity:0}to{transform:none;opacity:1}}
-.title{margin:0;font-weight:900;font-size:clamp(28px,4vw,66px);line-height:1.08;background:linear-gradient(180deg,#d97706,#1e3a8a);-webkit-background-clip:text;background-clip:text;color:transparent}
-.subtitle{color:var(--muted);font-size:clamp(15px,1.4vw,22px);margin:.45em 0 .9em;font-weight:600}
-.segs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:14px}
-.seg{display:inline-flex;background:#f1f5f9;border-radius:16px;padding:5px;gap:5px;flex-wrap:wrap;justify-content:center}
-.seg button{border:0;background:transparent;padding:7px 14px;border-radius:12px;font-weight:800;font-size:clamp(13px,1.2vw,19px);color:#334155}
+.title{margin:0;font-weight:900;font-size:clamp(26px,3.6vw,58px);line-height:1.06;background:linear-gradient(180deg,#d97706,#1e3a8a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{color:var(--muted);font-size:clamp(13.5px,1.25vw,19px);margin:.35em 0 .7em;font-weight:600}
+.segs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px}
+.seg{display:inline-flex;background:#f1f5f9;border-radius:14px;padding:4px;gap:4px;flex-wrap:wrap;justify-content:center}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:10px;font-weight:800;font-size:clamp(12.5px,1.1vw,17px);color:#334155}
 .seg button.on{background:#fff;color:#0f172a;box-shadow:0 3px 0 #cbd5e1,0 0 0 2px #f59e0b}
-.rules{display:grid;gap:8px;text-align:left;margin:0 auto 14px;max-width:740px}
-.rule{display:flex;gap:12px;align-items:center;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:8px 14px;font-size:clamp(13.5px,1.2vw,19.5px);font-weight:600}
-.rule .ico{font-size:1.35em;flex:none}
-.stats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 16px}
-.stat{background:#f1f5f9;border-radius:999px;padding:5px 14px;font-weight:800;font-size:clamp(13px,1.15vw,19px)}
-.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.keys{margin-top:12px;color:var(--muted);font-size:clamp(12px,1vw,15.5px);line-height:1.8}
+.rules{display:grid;gap:6px;text-align:left;margin:0 auto 10px;max-width:790px}
+.rule{display:flex;gap:10px;align-items:center;background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;padding:6px 12px;font-size:clamp(12.5px,1.08vw,17px);font-weight:600;line-height:1.35}
+.rule .ico{font-size:1.3em;flex:none}
+.stats{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:0 0 12px}
+.stat{background:#f1f5f9;border-radius:999px;padding:4px 12px;font-weight:800;font-size:clamp(12px,1.05vw,16.5px)}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.keys{margin-top:9px;color:var(--muted);font-size:clamp(11.5px,.95vw,14.5px);line-height:1.65}
 .keys kbd{display:inline-block;background:#f1f5f9;border:1px solid #cbd5e1;border-bottom-width:3px;border-radius:6px;padding:0 6px;font-family:inherit;font-weight:700;color:#334155}
-.res-table{width:100%;max-width:760px;margin:0 auto 18px;border-collapse:separate;border-spacing:0 6px;font-weight:800;font-size:clamp(13.5px,1.3vw,21px)}
-.res-table td,.res-table th{padding:8px 10px;background:#f8fafc}
+.res-table{width:100%;max-width:820px;margin:0 auto 16px;border-collapse:separate;border-spacing:0 6px;font-weight:800;font-size:clamp(13px,1.2vw,19.5px)}
+.res-table td,.res-table th{padding:7px 9px;background:#f8fafc}
 .res-table th{background:transparent;color:var(--muted);font-size:.82em}
 .res-table tr td:first-child{border-radius:12px 0 0 12px;text-align:left;border-left:8px solid var(--tc)}
 .res-table tr td:last-child{border-radius:0 12px 12px 0}
 .medal{font-size:clamp(42px,5vw,82px)}
+
+/* Hộp thông báo Sự kiện Bẫy / May Mắn */
+.ev-card{width:min(680px,100%);border:5px solid #f59e0b;position:relative;overflow:hidden}
+.ev-card.trap{border-color:#ef4444;background:linear-gradient(180deg,#fff5f5,#ffffff 38%)}
+.ev-card.lucky{border-color:#10b981;background:linear-gradient(180deg,#ecfdf5,#ffffff 38%)}
+.ev-tag{display:inline-block;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:clamp(12px,1.05vw,16px);padding:4px 14px;border-radius:999px;margin-bottom:8px}
+.ev-card.trap .ev-tag{background:#fee2e2;color:#b91c1c;border:2px solid #fca5a5}
+.ev-card.lucky .ev-tag{background:#d1fae5;color:#047857;border:2px solid #6ee7b7}
+.ev-ico{font-size:clamp(54px,7vw,92px);line-height:1.05;margin:4px 0 6px;animation:shardPop .48s cubic-bezier(.2,1.5,.4,1)}
+.ev-title{margin:0;font-weight:900;font-size:clamp(24px,3vw,44px);line-height:1.12}
+.ev-card.trap .ev-title{color:#b91c1c}
+.ev-card.lucky .ev-title{color:#047857}
+.ev-delta{display:inline-block;margin:10px 0 6px;padding:6px 18px;border-radius:14px;font-weight:900;font-size:clamp(18px,2vw,30px)}
+.ev-card.trap .ev-delta{background:#fee2e2;color:#dc2626;border:2px solid #f87171}
+.ev-card.lucky .ev-delta{background:#fef3c7;color:#92400e;border:2px solid #f59e0b}
+.ev-desc{color:#334155;font-weight:700;font-size:clamp(15px,1.35vw,21px);line-height:1.45;margin:6px auto 14px;max-width:560px}
+.ev-clue{margin:0 auto 14px;max-width:580px;text-align:left}
 
 /* Màn hình giới thiệu (Splash) */
 #splash{position:fixed;inset:0;z-index:90;overflow:hidden;background:#0b1120;cursor:pointer;transition:opacity .7s ease,transform .7s ease}
@@ -435,6 +472,8 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
     <span id="torchChip" class="chip torch hidden">🔥 Đuốc: 5</span>
   </div>
   <div class="tools">
+    <button id="btnCam" class="tool hidden" title="Đổi góc nhìn camera 3D (V)">🎥 3D Thám hiểm</button>
+    <button id="btnView" class="tool" title="Chuyển nhanh chế độ 2D ↔ 3D bất cứ lúc nào (T)">🏛️ 3D</button>
     <button id="btnEdit" class="tool" title="Soạn câu hỏi, cài đặt mật mã, nhập file Word (.docx) (E)">✎ Câu hỏi &amp; Mật mã</button>
     <button id="btnMute" class="tool" title="Bật/tắt âm thanh (M)">🔊</button>
     <button id="btnFull" class="tool" title="Toàn màn hình (F)">⛶</button>
@@ -445,6 +484,8 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
   <aside id="sidebar"></aside>
   <section id="mazeWrap">
     <svg id="mazeSvg" viewBox="0 0 700 500" aria-label="Bản đồ Mê Cung Tri Thức"></svg>
+    <div id="maze3d" class="hidden" aria-label="Bản đồ Mê Cung 3D"></div>
+    <div id="camHint" class="hidden">🖱 Kéo xoay · Cuộn zoom · <kbd>V</kbd> đổi góc nhìn · <kbd>T</kbd> về 2D</div>
   </section>
 </main>
 
@@ -474,6 +515,21 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
 <div id="banner"></div>
 <div id="flash"></div>
 <div id="vignette"></div>
+
+<!-- Hộp thông báo Sự kiện Bẫy / May Mắn khi bước vào phòng Bí Ẩn -->
+<div id="eventModal" class="overlay hidden">
+  <div id="evCard" class="card ev-card">
+    <div id="evTag" class="ev-tag">🎲 Ô BÍ ẨN</div>
+    <div id="evIco" class="ev-ico">🔥</div>
+    <h2 id="evTitle" class="ev-title">GẶP LỬA THẦN!</h2>
+    <div id="evDelta" class="ev-delta">−5% điểm</div>
+    <div id="evDesc" class="ev-desc"></div>
+    <div id="evClue" class="ev-clue hidden"></div>
+    <div class="actions">
+      <button id="btnEvOk" type="button" class="big go">Tiếp tục mê cung →<kbd>Space</kbd></button>
+    </div>
+  </div>
+</div>
 
 <!-- Hộp Giải Mã Cổng Kho Báu (mở bất cứ lúc nào khi bấm ô Cổng Kho Báu hoặc phím G) -->
 <div id="vaultModal" class="overlay hidden">
@@ -522,8 +578,8 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
 <!-- Màn hình bắt đầu -->
 <div id="intro" class="overlay">
   <div class="card">
-    <h1 class="title">🧭 MÊ CUNG TRI THỨC</h1>
-    <p class="subtitle">Cuộc đua giải mã — Mở phòng chìa khóa thu thập manh mối và bấm Cổng Kho Báu đoán mật mã bất cứ lúc nào!</p>
+    <h1 class="title"><span style="-webkit-text-fill-color:initial">🧭</span> MÊ CUNG TRI THỨC</h1>
+    <p class="subtitle">Cuộc đua giải mã — Chế độ 2D / 3D, phòng Bí Ẩn (Bẫy &amp; May Mắn) và Cổng Kho Báu đoán mật mã bất cứ lúc nào!</p>
     <div class="segs">
       <div class="seg" id="modeSeg">
         <button data-v="1">Cả lớp</button>
@@ -536,6 +592,10 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
         <button data-v="md">Vừa (7×7)</button>
         <button data-v="lg">Lớn (9×7)</button>
       </div>
+      <div class="seg" id="viewSeg">
+        <button data-v="0">🗺 2D</button>
+        <button data-v="1">🏛️ 3D</button>
+      </div>
     </div>
     <div id="rules" class="rules"></div>
     <div id="introStats" class="stats"></div>
@@ -544,7 +604,7 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
       <button id="btnEdit2" class="big ghost">✎ Nhập đề Word / Cài đặt mật mã</button>
     </div>
     <div class="keys">
-      Phím tắt giáo viên: <kbd>←↑→↓</kbd> chọn phòng · <kbd>Enter</kbd> mở phòng · <kbd>G</kbd> đoán mật mã Kho Báu · <kbd>A</kbd>–<kbd>D</kbd> / <kbd>1</kbd>–<kbd>4</kbd> trả lời · <kbd>H</kbd> gợi ý 50/50 · <kbd>Space</kbd> tiếp · <kbd>E</kbd> cài đặt · <kbd>F</kbd> toàn màn hình
+      Phím tắt: <kbd>←↑→↓</kbd> chọn phòng · <kbd>Enter</kbd> mở phòng · <kbd>G</kbd> đoán mật mã · <kbd>T</kbd> đổi 2D/3D · <kbd>V</kbd> góc nhìn 3D · <kbd>A</kbd>–<kbd>D</kbd> trả lời · <kbd>H</kbd> gợi ý · <kbd>Space</kbd> tiếp · <kbd>E</kbd> cài đặt · <kbd>F</kbd> toàn màn hình
     </div>
   </div>
 </div>
@@ -580,12 +640,14 @@ img.qimg.fig{float:right;max-width:36%;margin:0 0 .4em 1.2vw;border:2px solid #e
   <div class="sp-fallback">🧭 MÊ CUNG TRI THỨC</div>
   <div class="sp-bottom">
     <div class="sp-title">MÊ CUNG TRI THỨC</div>
-    <div class="sp-sub">CUỘC ĐUA GIẢI MÃ</div>
+    <div class="sp-sub">CUỘC ĐUA GIẢI MÃ · 2D &amp; 3D</div>
     <button type="button" class="sp-btn">🧭 VÀO GAME</button>
     <div class="sp-hint">Bấm bất kỳ đâu hoặc nhấn Enter · Hỗ trợ nhập đề Word (.docx) &amp; KaTeX offline</div>
   </div>
 </div>
 
+<script src="lib/three.min.js"></script>
+<script src="lib/maze3d.js"></script>
 <script src="lib/qbank.js" data-store="me-cung-tri-thuc.v1" data-db="me-cung-tri-thuc"></script>
 <script>
 "use strict";
@@ -690,11 +752,13 @@ const DEF = {
   mode: 2, size: "md", time: 30, torches: 5,
   secretCode: DEFAULT_SECRET,
   secretClues: DEFAULT_CLUES,
+  view3d: false,
+  eventsOn: true, trapCount: 4, luckyCount: 4,
   steal: true, allowHint: true, requireExplain: true,
   shuffleQ: false, shuffleA: false,
   teamNames: TEAM_DEF.map(t => t.name)
 };
-let S = QB.getSettings(GAME_ID, DEF);
+let S = { ...DEF, ...QB.getSettings(GAME_ID, DEF) };
 const saveS = () => QB.saveSettings(GAME_ID, S);
 const teamMode = () => S.mode > 1;
 const keyOf = (x, y) => x + "," + y;
@@ -707,6 +771,22 @@ const ROOM_INFO = {
   hint:   { ico: "💡", name: "Phòng Bùa Gợi Ý", pts: 100 },
   vault:  { ico: "👑", name: "CỔNG KHO BÁU", pts: 250 }
 };
+
+/* =================== Hệ thống Ô Bẫy & Ô May Mắn rải rác trong Mê Cung =================== */
+const EVENT_TYPES = {
+  // Bẫy — trừ phần trăm điểm hiện có (không âm điểm)
+  fire:      { id: "fire",      kind: "trap",  ico: "🔥", name: "Bẫy Lửa Thần",  short: "−5%",   pct: 0.05, color: "#f97316", desc: "Ngọn lửa cổ đại bùng cháy bất ngờ! Đội bị trừ 5% tổng điểm hiện có." },
+  poison:    { id: "poison",    kind: "trap",  ico: "🕸️", name: "Bẫy Độc Khí",   short: "−8%",   pct: 0.08, color: "#84cc16", desc: "Sương độc lan tỏa khắp căn phòng! Đội bị trừ 8% tổng điểm hiện có." },
+  abyss:     { id: "abyss",     kind: "trap",  ico: "🕳️", name: "Bẫy Vực Sâu",   short: "−10%",  pct: 0.10, color: "#a855f7", desc: "Sàn đá bất ngờ sụp xuống vực sâu! Đội bị trừ 10% tổng điểm hiện có." },
+  beast:     { id: "beast",     kind: "trap",  ico: "🐺", name: "Bẫy Thú Dữ",    short: "−15%",  pct: 0.15, color: "#ef4444", desc: "Thú dữ canh giữ mê cung bất ngờ tấn công! Đội bị trừ 15% tổng điểm hiện có." },
+  // Ô May Mắn — thưởng ngay khi bước vào phòng
+  free_clue: { id: "free_clue", kind: "lucky", ico: "📜", name: "Cuộn Giấy Manh Mối", short: "Gợi ý", color: "#fde047", desc: "Nhặt được cuộn giấy cổ! Mở ngay 1 manh mối mật mã hoàn toàn miễn phí!" },
+  steal_pts: { id: "steal_pts", kind: "lucky", ico: "🧲", name: "Nam Châm Hút Điểm",  short: "+5%đ",  pct: 0.05, color: "#38bdf8", desc: "Kích hoạt nam châm năng lượng! Hút ngay 5% điểm của đội bạn dẫn đầu!" },
+  bonus_100: { id: "bonus_100", kind: "lucky", ico: "💰", name: "Kho Báu +100 Điểm",  short: "+100đ", pts: 100,  color: "#4ade80", desc: "Phát hiện rương tiền vàng cổ đại! Cộng thẳng +100 điểm thưởng!" },
+  free_hint: { id: "free_hint", kind: "lucky", ico: "🍀", name: "Bùa May Mắn",         short: "+Bùa",  pts: 50,   color: "#34d399", desc: "Nhận ngay +1 Bùa Gợi Ý 50/50 miễn phí và +50 điểm thưởng!" }
+};
+const TRAP_ORDER = ["fire", "abyss", "beast", "poison"];
+const LUCKY_ORDER = ["free_clue", "steal_pts", "bonus_100", "free_hint"];
 
 /* =================== Xử lý Mật Mã & Manh Mối =================== */
 function normalizeSecret(s, stripSpaces = false) {
@@ -797,7 +877,13 @@ const SFX = {
   timeup() { A.seq([[360, 0, .12], [280, .13, .22]], { type: "sawtooth", vol: .22 }); },
   victory() { A.seq([[523, 0, .11], [659, .1, .11], [784, .2, .12], [1047, .32, .22], [784, .52, .12], [1047, .64, .45]], { type: "triangle", vol: .32 }); },
   defeat() { A.seq([[349, 0, .2], [311, .2, .2], [277, .4, .22], [233, .62, .45]], { type: "triangle", vol: .24 }); },
-  escape() { A.seq([[440, 0, .14], [523, .14, .14], [659, .28, .28]], { type: "triangle", vol: .24 }); }
+  escape() { A.seq([[440, 0, .14], [523, .14, .14], [659, .28, .28]], { type: "triangle", vol: .24 }); },
+  trap(id) {
+    if (id === "abyss") A.seq([[340, 0, .16], [240, .14, .18], [140, .30, .28]], { type: "sawtooth", vol: .26 });
+    else if (id === "beast") A.seq([[180, 0, .12], [135, .10, .14], [210, .22, .10], [115, .30, .26]], { type: "sawtooth", vol: .30 });
+    else A.seq([[290, 0, .12], [220, .11, .14], [165, .24, .22]], { type: "sawtooth", vol: .25 });
+  },
+  lucky() { A.seq([[523, 0, .08], [659, .07, .08], [784, .14, .09], [1047, .22, .12], [1318, .32, .26]], { type: "triangle", vol: .30 }); }
 };
 
 /* =================== Sinh Mê Cung Đối Xứng 4 Góc (Guaranteed Connected) =================== */
@@ -818,7 +904,7 @@ function generateMaze(sizeKey) {
   for (let y = 0; y < h; y++) {
     const row = [];
     for (let x = 0; x < w; x++) {
-      row.push({ x, y, w: { N: true, E: true, S: true, W: true }, type: "normal", chestTaken: false, hintTaken: false });
+      row.push({ x, y, w: { N: true, E: true, S: true, W: true }, type: "normal", chestTaken: false, hintTaken: false, event: null });
     }
     cells.push(row);
   }
@@ -945,12 +1031,43 @@ function generateMaze(sizeKey) {
   if (ptr < ordered.length) { setSymType(ordered[ptr][0], ordered[ptr][1], "chest"); ptr++; }
   if (ptr < ordered.length) { setSymType(ordered[ptr][0], ordered[ptr][1], "hint"); ptr++; }
 
-  return { w, h, cx, cy, shardsNeeded: shards, cells };
+  // 5. Rải đều các Ô Bẫy & Ô May Mắn lên các ô "normal" còn trống khắp bản đồ
+  let trapsPlaced = 0, luckyPlaced = 0;
+  if (S.eventsOn) {
+    const freeCells = [];
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        if (cells[y][x].type === "normal" && !cornerSet.has(keyOf(x, y))) freeCells.push(cells[y][x]);
+      }
+    }
+    const maxCap = Math.max(0, freeCells.length - 2);
+    let wantTrap = Math.max(0, Math.min(12, Math.round(+S.trapCount || 0)));
+    let wantLucky = Math.max(0, Math.min(12, Math.round(+S.luckyCount || 0)));
+    if (wantTrap + wantLucky > maxCap) {
+      const scale = maxCap / Math.max(1, wantTrap + wantLucky);
+      wantTrap = Math.floor(wantTrap * scale);
+      wantLucky = Math.floor(wantLucky * scale);
+    }
+    const pool = [];
+    const trapPool = shuffle(TRAP_ORDER.slice());
+    for (let i = 0; i < wantTrap; i++) pool.push(trapPool[i % trapPool.length]);
+    const luckyPool = shuffle(LUCKY_ORDER.slice());
+    for (let i = 0; i < wantLucky; i++) pool.push(luckyPool[i % luckyPool.length]);
+
+    const targets = shuffle(freeCells).slice(0, pool.length);
+    shuffle(pool).forEach((evId, idx) => {
+      const ev = EVENT_TYPES[evId];
+      targets[idx].event = { id: ev.id, kind: ev.kind, revealed: false };
+      if (ev.kind === "trap") trapsPlaced++; else luckyPlaced++;
+    });
+  }
+
+  return { w, h, cx, cy, shardsNeeded: shards, trapsPlaced, luckyPlaced, cells };
 }
 
 /* =================== Trạng thái trò chơi =================== */
 const G = {
-  phase: "intro", // intro | starting | pick | question | resolving | steal | result | moving | vault | end | map | editor
+  phase: "intro", // intro | starting | pick | question | resolving | steal | result | moving | event | vault | end | map | editor
   maze: null,
   secret: null,       // { raw, chars, letterIdx, isDigitsOnly, summary, clues[] }
   unlockedClues: [],  // [{ num, text }]
@@ -999,6 +1116,7 @@ function newGame() {
   const starts = startPosFor(S.mode, G.maze.w, G.maze.h);
   G.teams = starts.map(([x, y], i) => {
     G.maze.cells[y][x].type = "start";
+    G.maze.cells[y][x].event = null;
     return {
       i,
       name: teamMode() ? (S.teamNames[i] || TEAM_DEF[i].name) : "Cả lớp",
@@ -1008,6 +1126,8 @@ function newGame() {
       shardCells: new Set(),
       keys: 0,
       hints: 0,
+      trapsHit: 0,
+      luckyHit: 0,
       score: 0,
       correct: 0,
       answered: 0,
@@ -1020,6 +1140,8 @@ function newGame() {
   G.winner = null;
   $("#vaultModal").classList.add("hidden");
   $("#clueModal").classList.add("hidden");
+  $("#eventModal").classList.add("hidden");
+  if (window.Maze3D && Maze3D.isActive()) Maze3D.rebuild();
   renderAll();
 }
 
@@ -1043,6 +1165,77 @@ function getFrontier(teamIdx) {
     }
   }
   return out;
+}
+
+/* =================== Chuyển đổi nóng chế độ 2D ↔ 3D =================== */
+const MAZE3D_HOOKS = {
+  getState: () => G,
+  coordLabel,
+  isPaused: () => splashOpen() || QB.editorOpen(),
+  onSelectCell(x, y) { selectRoom(x, y); },
+  onHoverCell(x, y) {
+    if (G.phase !== "pick") return;
+    if (!G.cursor || G.cursor.x !== x || G.cursor.y !== y) {
+      G.cursor = { x, y };
+      renderAll();
+      renderActionBar();
+    }
+  }
+};
+
+function applyViewMode(want3D, silent = false) {
+  const target3D = !!want3D;
+  let actual3D = target3D;
+  if (target3D) {
+    $("#maze3d").classList.remove("hidden");
+    const ok = window.Maze3D && Maze3D.setActive(true, $("#maze3d"), MAZE3D_HOOKS);
+    if (!ok) {
+      actual3D = false;
+      $("#maze3d").classList.add("hidden");
+      if (!silent) banner("TRÌNH DUYỆT KHÔNG HỖ TRỢ WEBGL 3D!", "#f87171", true);
+    }
+  } else if (window.Maze3D) {
+    Maze3D.setActive(false);
+  }
+
+  S.view3d = actual3D;
+  saveS();
+
+  $("#mazeSvg").classList.toggle("hidden", actual3D);
+  $("#maze3d").classList.toggle("hidden", !actual3D);
+  $("#camHint").classList.toggle("hidden", !actual3D);
+  const bv = $("#btnView");
+  if (bv) {
+    bv.classList.toggle("on", actual3D);
+    bv.textContent = actual3D ? "🗺 2D" : "🏛️ 3D";
+    bv.title = actual3D ? "Chuyển về chế độ bản đồ 2D (T)" : "Chuyển sang chế độ Mê Cung 3D (T)";
+  }
+  const bc = $("#btnCam");
+  if (bc) {
+    bc.classList.toggle("hidden", !actual3D);
+    if (actual3D && window.Maze3D) bc.textContent = Maze3D.getCameraLabel();
+  }
+  document.querySelectorAll("#viewSeg button").forEach(b => b.classList.toggle("on", (b.dataset.v === "1") === actual3D));
+
+  if (actual3D && window.Maze3D) {
+    Maze3D.resize();
+    Maze3D.sync();
+  } else {
+    renderMaze();
+  }
+  if (!silent) {
+    A.init(); SFX.click();
+    if (!["intro", "editor"].includes(G.phase)) banner(actual3D ? "🏛️ CHẾ ĐỘ 3D!" : "🗺 CHẾ ĐỘ 2D!", "#fde047", true);
+  }
+}
+
+function cycleCam3D() {
+  if (!S.view3d || !window.Maze3D || !Maze3D.isActive()) return;
+  const lbl = Maze3D.cycleCamera();
+  const bc = $("#btnCam");
+  if (bc) bc.textContent = lbl;
+  A.init(); SFX.click();
+  if (!["intro", "editor"].includes(G.phase)) banner(lbl, "#38bdf8", true);
 }
 
 /* =================== Vẽ Bảng Đội, Sổ Manh Mối & Bản Đồ Mê Cung SVG =================== */
@@ -1087,6 +1280,7 @@ function renderSidebar() {
       <span>👑 Đoán mật mã</span>
       <span>💎 Rương (+50đ)</span>
       <span>💡 Bùa gợi ý</span>
+      ${S.eventsOn ? `<span>❓ Bí ẩn (Bẫy/May)</span><span>🔥🕳️🐺 / 📜🧲💰</span>` : ""}
     </div>
   </div>`;
   const sb = $("#sidebar");
@@ -1109,6 +1303,7 @@ function renderMaze() {
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
   const cur = curTeam();
+  const isEnd = G.phase === "end" || G.phase === "map";
   const canMap = new Map();
   if (G.phase === "pick") G.frontier.forEach(f => canMap.set(keyOf(f.x, f.y), f));
 
@@ -1152,8 +1347,8 @@ function renderMaze() {
         `<circle cx="${px + 14 + oi * 14}" cy="${py + CELL - 12}" r="4.8" fill="${t.c}" stroke="#0f172a" stroke-width="1.5"/>`
       ).join("");
 
-      // Biểu tượng trong ô
-      let ico = "";
+      // Biểu tượng & màu nền ô
+      let ico = "", floorExtra = "";
       if (isVault) {
         ico = `<text class="mz-ico" x="${px + CELL / 2}" y="${py + CELL / 2 - 7}">👑</text>
                <text class="mz-vault-txt" x="${px + CELL / 2}" y="${py + CELL - 14}">ĐOÁN MÃ!</text>`;
@@ -1166,10 +1361,21 @@ function renderMaze() {
         ico = `<text class="mz-ico ${c.hintTaken ? "dim" : ""}" x="${px + CELL / 2}" y="${py + CELL / 2}">💡</text>`;
       } else if (c.type === "start") {
         ico = `<text class="mz-ico dim" x="${px + CELL / 2}" y="${py + CELL / 2}">🚩</text>`;
+      } else if (c.event) {
+        const ev = EVENT_TYPES[c.event.id];
+        if (c.event.revealed || isEnd) {
+          floorExtra = c.event.kind === "trap" ? "ev-trap" : "ev-lucky";
+          const dimCls = c.event.revealed && !isEnd ? "dim" : "";
+          ico = `<text class="mz-ico ${dimCls}" x="${px + CELL / 2}" y="${py + CELL / 2 - 6}">${ev.ico}</text>
+                 <text class="mz-ev-sub ${c.event.kind}" x="${px + CELL / 2}" y="${py + CELL - 18}">${ev.short}</text>`;
+        } else {
+          floorExtra = "ev-myst";
+          ico = `<text class="mz-ico myst" x="${px + CELL / 2}" y="${py + CELL / 2}">❓</text>`;
+        }
       }
 
       out += `<g class="${cls}" data-x="${x}" data-y="${y}" ${style}>
-        <rect class="mz-floor ${seen ? "seen" : ""} ${isVault ? "vault" : ""}" x="${px}" y="${py}" width="${CELL}" height="${CELL}" rx="4"/>
+        <rect class="mz-floor ${seen ? "seen" : ""} ${isVault ? "vault" : ""} ${floorExtra}" x="${px}" y="${py}" width="${CELL}" height="${CELL}" rx="4"/>
         ${canClick ? `<rect class="mz-hl" x="${px + 5}" y="${py + 5}" width="${CELL - 10}" height="${CELL - 10}" rx="10"/>` : ""}
         <text class="mz-lbl" x="${px + 7}" y="${py + 15}">${coordLabel(x, y)}</text>
         ${ico}
@@ -1235,7 +1441,8 @@ function updateCounters() {
 
 function renderAll() {
   renderSidebar();
-  renderMaze();
+  if (S.view3d && window.Maze3D && Maze3D.isActive()) Maze3D.sync();
+  else renderMaze();
   updateCounters();
 }
 
@@ -1252,12 +1459,14 @@ function renderActionBar(toast = "") {
   if (G.phase !== "pick") { bar.classList.add("hidden"); return; }
   const t = curTeam();
   const c = G.cursor ? G.maze.cells[G.cursor.y][G.cursor.x] : null;
-  const rInfo = c ? ROOM_INFO[c.type] : ROOM_INFO.normal;
+  const roomIco = c
+    ? (c.event && !c.event.revealed ? "❓" : ROOM_INFO[c.type].ico)
+    : ROOM_INFO.normal.ico;
   bar.style.setProperty("--tc", t.c);
   bar.innerHTML = `${toast ? `<div class="toast">${esc(toast)}</div>` : ""}
     <span class="who" style="color:${t.c}">🧭 ${esc(t.name)}</span>
     <span class="sub">Chọn phòng (${G.frontier.length}) hoặc bấm 👑 Cổng Kho Báu đoán mã</span>
-    ${c ? `<button class="abtn blue" data-act="enter">⚡ Vào ô ${coordLabel(c.x, c.y)} (${rInfo.ico})</button>` : ""}
+    ${c ? `<button class="abtn blue" data-act="enter">⚡ Vào ô ${coordLabel(c.x, c.y)} (${roomIco})</button>` : ""}
     <button class="abtn vault" data-act="vault">👑 Đoán mật mã (+${vaultBonusPoints()}đ)</button>`;
   bar.classList.remove("hidden");
 }
@@ -1268,24 +1477,31 @@ function showIntro() {
   hideCard();
   $("#vaultModal").classList.add("hidden");
   $("#clueModal").classList.add("hidden");
+  $("#eventModal").classList.add("hidden");
   $("#actionbar").classList.add("hidden");
   document.querySelectorAll("#modeSeg button").forEach(b => b.classList.toggle("on", +b.dataset.v === S.mode));
   document.querySelectorAll("#sizeSeg button").forEach(b => b.classList.toggle("on", b.dataset.v === S.size));
+  document.querySelectorAll("#viewSeg button").forEach(b => b.classList.toggle("on", (b.dataset.v === "1") === !!S.view3d));
   const sz = SIZES[S.size] || SIZES.md;
   const sec = G.secret || buildSecretState();
   const rules = [
-    ["🗺", `Chọn một phòng kế tiếp phát sáng trong mê cung để mở câu hỏi. Đọc tên ô (ví dụ <b>B2</b>) để giáo viên bấm hoặc dùng phím mũi tên.`],
-    ["🔑", `Vượt qua các <b>Phòng Chìa Khóa 🔑</b> để mở từng <b>Manh mối gợi ý xoay quanh Mật mã kho báu</b> (${sec.summary}, ${sec.clues.length} manh mối).`],
-    ["👑", `<b>Quyền đoán bất cứ lúc nào:</b> Ở mọi lượt đi, đội có thể bấm thẳng ô <b>👑 Cổng Kho Báu</b> (hoặc phím <kbd>G</kbd>) để đoán mật mã sớm! Đoán càng sớm thưởng càng lớn (+${250 + sec.clues.length * 40}đ tối đa); đoán sai mất lượt đó.`],
-    ["💡", S.allowHint ? `Gặp câu hỏi khó có thể dùng <b>Gợi ý 50/50</b> (miễn phí nếu nhặt Bùa 💡, hoặc trừ 30 điểm thưởng).` : `Chế độ thử thách cao: không dùng gợi ý 50/50.`]
+    ["🗺", `Chọn phòng kế tiếp phát sáng để mở câu hỏi (đọc tọa độ như <b>B2</b>). Có thể chuyển nóng giữa <b>🗺 2D ↔ 🏛️ 3D</b> bất cứ lúc nào (phím <kbd>T</kbd>).`],
+    ["🔑", `Vượt qua các <b>Phòng Chìa Khóa 🔑</b> để mở từng <b>Manh mối xoay quanh Mật mã kho báu</b> (${sec.summary}, ${sec.clues.length} manh mối).`],
+    ["❓", S.eventsOn
+      ? `<b>Phòng Bí Ẩn rải rác khắp bản đồ:</b> có thể gặp <b>Bẫy</b> (🔥 Lửa Thần −5%, 🕸️ Độc Khí −8%, 🕳️ Vực Sâu −10%, 🐺 Thú Dữ −15%) hoặc <b>Ô May Mắn</b> (📜 Gợi ý miễn phí, 🧲 Hút 5% điểm đội bạn, 💰 +100đ, 🍀 Bùa +50đ)!`
+      : `Hiện đang tắt Phòng Bí Ẩn (bật lại trong <b>✎ Câu hỏi &amp; Mật mã</b>).`],
+    ["👑", `<b>Đoán mật mã bất cứ lúc nào:</b> Bấm thẳng ô <b>👑 Cổng Kho Báu</b> (hoặc phím <kbd>G</kbd>) để đoán sớm ăn thưởng tối đa +${250 + sec.clues.length * 40}đ; đoán sai chỉ mất lượt đó.`]
   ];
   $("#rules").innerHTML = rules.map(([i, t]) => `<div class="rule"><span class="ico">${i}</span><span>${t}</span></div>`).join("");
   const qs = QB.parse(QB.getText()).questions;
+  const evStat = S.eventsOn && G.maze
+    ? `<span class="stat">❓ ${G.maze.trapsPlaced} bẫy · ${G.maze.luckyPlaced} may mắn</span>` : "";
   $("#introStats").innerHTML =
     `<span class="stat">📝 ${qs.length} câu · ${G.rounds.length} lượt</span>` +
-    `<span class="stat">🗺 Mê cung ${sz.w}×${sz.h}</span>` +
-    `<span class="stat">🔐 Mật mã bí mật: ${esc(sec.summary)} · ${sec.clues.length} manh mối</span>` +
-    `<span class="stat">⏱ ${S.time > 0 ? S.time + " giây/câu" : "Không giới hạn giờ"}</span>`;
+    `<span class="stat">🗺 ${sz.w}×${sz.h} (${S.view3d ? "3D" : "2D"})</span>` +
+    evStat +
+    `<span class="stat">🔐 ${esc(sec.summary)} · ${sec.clues.length} manh mối</span>` +
+    `<span class="stat">⏱ ${S.time > 0 ? S.time + "s/câu" : "Không giới hạn"}</span>`;
   $("#endScreen").classList.add("hidden");
   $("#intro").classList.remove("hidden");
 }
@@ -1446,10 +1662,14 @@ async function finishVaultAction(act) {
     G.winner = t.i;
     G.phase = "moving";
     renderAll();
-    const el = document.querySelector(`.mz-cell[data-x="${G.maze.cx}"][data-y="${G.maze.cy}"]`);
-    if (el) {
-      const r = el.getBoundingClientRect();
-      FX.burst(r.left + r.width / 2, r.top + r.height / 2, { n: 110, colors: ["#fde047", "#f59e0b", "#ffffff", "#38bdf8", "#4ade80"], speed: 580, shape: "mix" });
+    if (S.view3d && window.Maze3D && Maze3D.isActive()) {
+      Maze3D.fxEvent("vault", G.maze.cx, G.maze.cy, "#fde047");
+    } else {
+      const el = document.querySelector(`.mz-cell[data-x="${G.maze.cx}"][data-y="${G.maze.cy}"]`);
+      if (el) {
+        const r = el.getBoundingClientRect();
+        FX.burst(r.left + r.width / 2, r.top + r.height / 2, { n: 110, colors: ["#fde047", "#f59e0b", "#ffffff", "#38bdf8", "#4ade80"], speed: 580, shape: "mix" });
+      }
     }
     SFX.victory();
     banner("KHO BÁU ĐÃ MỞ!", "#fde047");
@@ -1489,6 +1709,7 @@ function showQuestion() {
   const r = G.rounds[G.idx];
   const cell = G.maze.cells[G.target.y][G.target.x];
   const isVault = cell.type === "vault";
+  const isMystery = !!(cell.event && !cell.event.revealed);
   const rInfo = ROOM_INFO[cell.type];
 
   G.phase = "question";
@@ -1509,10 +1730,12 @@ function showQuestion() {
   const qt = $("#qType");
   qt.textContent = r.kind === "tf" ? "Đúng / Sai" : r.kind === "short" ? "Trả lời ngắn" : "Trắc nghiệm";
   qt.classList.toggle("hidden", r.kind === "mc");
-  $("#qRoom").textContent = `${rInfo.ico} Ô ${coordLabel(cell.x, cell.y)} · ${rInfo.name}`;
+  $("#qRoom").textContent = isMystery
+    ? `❓ Ô ${coordLabel(cell.x, cell.y)} · Phòng Bí Ẩn (Bẫy / May Mắn)`
+    : `${rInfo.ico} Ô ${coordLabel(cell.x, cell.y)} · ${rInfo.name}`;
   setTurnChip(teamMode() ? "Lượt: " + curTeam().name : "", curTeam().c);
 
-  // Banner đặc biệt khi vào Phòng Chìa Khóa 🔑
+  // Banner đặc biệt khi vào Phòng Chìa Khóa 🔑 hoặc Phòng Bí Ẩn ❓
   const vb = $("#vaultBanner");
   const nextClueNum = Math.min(G.unlockedClues.length + 1, G.secret.clues.length);
   if (cell.type === "shard" && !curTeam().shardCells.has(keyOf(cell.x, cell.y))) {
@@ -1520,6 +1743,9 @@ function showQuestion() {
       ? `🔑 PHÒNG CHÌA KHÓA! Trả lời đúng để mở Manh mối #${nextClueNum}/${G.secret.clues.length} xoay quanh mật mã kho báu!`
       : `🔑 PHÒNG CHÌA KHÓA! Trả lời đúng để hé lộ thêm 1 ký tự bí mật trong mật mã kho báu!`;
     vb.innerHTML = `<span>${label}</span>`;
+    vb.classList.remove("hidden");
+  } else if (isMystery) {
+    vb.innerHTML = `<span>❓ PHÒNG BÍ ẨN! Bước vào đây sẽ mở khóa một <b>Bẫy cổ đại</b> (🔥/🕸️/🕳️/🐺) hoặc <b>Ô May Mắn</b> (📜/🧲/💰/🍀)!</span>`;
     vb.classList.remove("hidden");
   } else vb.classList.add("hidden");
 
@@ -1848,6 +2074,8 @@ function doSteal(teamIdx) {
   startTimer(S.time > 0 ? Math.min(S.time, 15) : 0);
 }
 
+let pendingEventToast = "";
+
 async function advanceIntoRoom() {
   if (G.phase !== "result") return;
   G.phase = "moving";
@@ -1860,15 +2088,27 @@ async function advanceIntoRoom() {
   t.pos = { x, y };
   renderAll();
 
-  const el = document.querySelector(`.mz-cell[data-x="${x}"][data-y="${y}"]`);
-  if (el) {
-    const r = el.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const cols = cell.type === "shard" ? ["#fde047", "#f59e0b", "#ffffff", "#a855f7"]
-      : cell.type === "chest" ? ["#fde047", "#38bdf8", "#ffffff"]
-      : [t.c, "#fde047", "#ffffff"];
-    FX.burst(cx, cy, { n: cell.type === "shard" ? 65 : 40, colors: cols, speed: 380, shape: "mix" });
+  if (S.view3d && window.Maze3D && Maze3D.isActive()) {
+    Maze3D.fxEvent(cell.type, x, y, t.c);
+  } else {
+    const el = document.querySelector(`.mz-cell[data-x="${x}"][data-y="${y}"]`);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const cols = cell.type === "shard" ? ["#fde047", "#f59e0b", "#ffffff", "#a855f7"]
+        : cell.type === "chest" ? ["#fde047", "#38bdf8", "#ffffff"]
+        : [t.c, "#fde047", "#ffffff"];
+      FX.burst(cx, cy, { n: cell.type === "shard" ? 65 : 40, colors: cols, speed: 380, shape: "mix" });
+    }
   }
+
+  // Nếu ô là Phòng Bí Ẩn (chưa lộ Bẫy / May Mắn) -> lật mở ngay khi quân cờ bước vào!
+  if (cell.event && !cell.event.revealed) {
+    await sleep(380);
+    triggerRoomEvent(cell, t);
+    return;
+  }
+
   if (cell.type === "shard" && G.unlockedClues.length === G.secret.clues.length) {
     banner("ĐÃ MỞ HẾT MANH MỐI! BẤM 👑 ĐOÁN MÃ!", "#fde047", true);
     await sleep(1100);
@@ -1876,6 +2116,138 @@ async function advanceIntoRoom() {
     await sleep(650);
   }
   proceedTurn();
+}
+
+function triggerRoomEvent(cell, t) {
+  const ev = EVENT_TYPES[cell.event.id];
+  cell.event.revealed = true;
+
+  let deltaText = "", descText = ev.desc, clueHtml = "", toast = "";
+
+  if (ev.kind === "trap") {
+    const pctNum = Math.round(ev.pct * 100);
+    const loss = t.score > 0 ? Math.min(t.score, Math.max(1, Math.round(t.score * ev.pct))) : 0;
+    t.score = Math.max(0, t.score - loss);
+    t.trapsHit++;
+    deltaText = loss > 0 ? `−${pctNum}% điểm (−${loss}đ) · Còn ${t.score}đ` : `−${pctNum}% điểm (đang 0đ)`;
+    descText = `${t.name} bước vào ô ${coordLabel(cell.x, cell.y)} và gặp ${ev.name}! ${ev.desc}`;
+    toast = `${ev.ico} ${t.name} gặp ${ev.name} (−${loss}đ)!`;
+    SFX.trap(ev.id);
+    flash("red", .68);
+  } else {
+    t.luckyHit++;
+    SFX.lucky();
+    flash("gold", .48);
+
+    if (ev.id === "free_clue") {
+      const unlocked = unlockNextClue();
+      if (unlocked) {
+        deltaText = unlocked.kind === "clue"
+          ? `📜 Mở miễn phí Manh mối #${unlocked.num}/${G.secret.clues.length}!`
+          : `🔓 Hé lộ miễn phí ký tự số ${unlocked.ord} của mật mã!`;
+        descText = `${t.name} tìm thấy cuộn giấy cổ ở ô ${coordLabel(cell.x, cell.y)}! Cả lớp được mở ngay gợi ý mật mã miễn phí:`;
+        clueHtml = clueBannerHtml(unlocked);
+        toast = `📜 ${t.name} mở miễn phí 1 gợi ý mật mã!`;
+      } else {
+        t.score += 100;
+        deltaText = `+100 điểm thưởng! (Tổng ${t.score}đ)`;
+        descText = `Tất cả manh mối đã mở hết — cuộn giấy cổ chuyển hóa thành +100 điểm thưởng cho ${t.name}!`;
+        toast = `📜 ${t.name} nhận +100đ kho báu!`;
+      }
+    } else if (ev.id === "steal_pts") {
+      if (teamMode()) {
+        const others = G.teams.filter(o => o.i !== t.i).sort((a, b) => b.score - a.score);
+        const victim = others[0];
+        if (victim && victim.score > 0) {
+          const take = Math.min(victim.score, Math.max(1, Math.round(victim.score * ev.pct)));
+          victim.score -= take;
+          t.score += take;
+          deltaText = `+5% điểm đội bạn (+${take}đ) · Tổng ${t.score}đ`;
+          descText = `${t.name} kích hoạt Nam Châm Hút Điểm ở ô ${coordLabel(cell.x, cell.y)}: lấy ngay ${take} điểm (5%) từ ${victim.name} (còn ${victim.score}đ)!`;
+          toast = `🧲 ${t.name} hút ${take}đ (5%) từ ${victim.name}!`;
+        } else {
+          t.score += 60;
+          deltaText = `+60 điểm dự phòng! (Tổng ${t.score}đ)`;
+          descText = `Các đội bạn hiện đang 0đ nên Nam Châm hút về rương vàng dự phòng +60 điểm cho ${t.name}!`;
+          toast = `🧲 ${t.name} nhận +60đ dự phòng!`;
+        }
+      } else {
+        if (G.torches < S.torches) {
+          G.torches = Math.min(S.torches, G.torches + 1);
+          t.score += 60;
+          deltaText = `+1 🔥 Đuốc & +60đ! (Tổng ${t.score}đ)`;
+          descText = `Cả lớp tìm thấy Ngọn Lửa Vĩnh Cửu ở ô ${coordLabel(cell.x, cell.y)}: khôi phục +1 đuốc (🔥 ${G.torches}/${S.torches}) và +60 điểm!`;
+          toast = `🧲 Cả lớp nhận +1 đuốc & +60đ!`;
+        } else {
+          t.score += 80;
+          deltaText = `+80 điểm thưởng! (Tổng ${t.score}đ)`;
+          descText = `Đuốc đã đầy — năng lượng kho báu ở ô ${coordLabel(cell.x, cell.y)} thưởng thẳng +80 điểm cho cả lớp!`;
+          toast = `🧲 Cả lớp nhận +80đ thưởng!`;
+        }
+      }
+    } else if (ev.id === "bonus_100") {
+      t.score += ev.pts;
+      deltaText = `+${ev.pts} điểm thưởng! (Tổng ${t.score}đ)`;
+      descText = `${t.name} mở trúng Rương Tiền Vàng cổ đại ở ô ${coordLabel(cell.x, cell.y)} và nhận ngay +${ev.pts} điểm!`;
+      toast = `💰 ${t.name} nhặt được +${ev.pts} điểm!`;
+    } else if (ev.id === "free_hint") {
+      if (S.allowHint) {
+        t.hints++;
+        t.score += ev.pts;
+        deltaText = `+1 💡 Bùa Gợi Ý miễn phí & +${ev.pts}đ!`;
+        descText = `${t.name} tìm thấy Bùa May Mắn ở ô ${coordLabel(cell.x, cell.y)}: nhận 1 Bùa 50/50 miễn phí và +${ev.pts} điểm thưởng!`;
+        toast = `🍀 ${t.name} nhận +1 Bùa Gợi Ý & +${ev.pts}đ!`;
+      } else {
+        t.score += 100;
+        deltaText = `+100 điểm thưởng may mắn! (Tổng ${t.score}đ)`;
+        descText = `${t.name} tìm thấy Cỏ Bốn Lá May Mắn ở ô ${coordLabel(cell.x, cell.y)} và nhận +100 điểm thưởng!`;
+        toast = `🍀 ${t.name} nhận +100đ may mắn!`;
+      }
+    }
+  }
+
+  pendingEventToast = toast;
+  renderAll();
+
+  if (S.view3d && window.Maze3D && Maze3D.isActive()) {
+    Maze3D.fxEvent(ev.id, cell.x, cell.y, ev.color);
+  } else {
+    const el = document.querySelector(`.mz-cell[data-x="${cell.x}"][data-y="${cell.y}"]`);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      const cols = ev.kind === "trap" ? [ev.color, "#ef4444", "#fde047"] : [ev.color, "#fde047", "#ffffff", "#38bdf8"];
+      FX.burst(r.left + r.width / 2, r.top + r.height / 2, { n: 65, colors: cols, speed: 460, shape: "mix" });
+    }
+  }
+
+  const card = $("#evCard");
+  card.className = "card ev-card " + ev.kind;
+  $("#evTag").textContent = ev.kind === "trap" ? `⚠️ Ô BẪY MÊ CUNG · Ô ${coordLabel(cell.x, cell.y)}` : `🍀 Ô MAY MẮN · Ô ${coordLabel(cell.x, cell.y)}`;
+  $("#evIco").textContent = ev.ico;
+  $("#evTitle").textContent = ev.kind === "trap" ? `GẶP ${ev.name.toUpperCase()}!` : ev.name.toUpperCase() + "!";
+  $("#evDelta").textContent = deltaText;
+  $("#evDesc").textContent = descText;
+  const clueBox = $("#evClue");
+  if (clueHtml) {
+    clueBox.innerHTML = clueHtml;
+    QB.renderMath(clueBox);
+    clueBox.classList.remove("hidden");
+  } else {
+    clueBox.innerHTML = "";
+    clueBox.classList.add("hidden");
+  }
+
+  G.phase = "event";
+  $("#eventModal").classList.remove("hidden");
+  setTimeout(() => $("#btnEvOk").focus({ preventScroll: true }), 60);
+}
+
+function closeEventModal() {
+  if (G.phase !== "event") return;
+  $("#eventModal").classList.add("hidden");
+  const toast = pendingEventToast;
+  pendingEventToast = "";
+  proceedTurn(toast);
 }
 
 function isOver() {
@@ -1897,17 +2269,20 @@ function endGame(type) {
   G.phase = "end"; stopTimer(); hideCard();
   $("#vaultModal").classList.add("hidden");
   $("#clueModal").classList.add("hidden");
+  $("#eventModal").classList.add("hidden");
   $("#actionbar").classList.add("hidden");
   renderAll();
   const sorted = G.teams.slice().sort((a, b) => {
     if (G.winner !== null) { if (a.i === G.winner) return -1; if (b.i === G.winner) return 1; }
     return (b.score - a.score) || (b.keys - a.keys) || (b.correct - a.correct);
   });
-  const head = `<tr><th>Đội</th><th>⭐ Điểm</th><th>🔑 Chìa khóa</th><th>🚪 Phòng</th><th>✔ Đúng</th><th>Chính xác</th></tr>`;
+  const evCol = S.eventsOn ? `<th>🔥/🍀</th>` : "";
+  const head = `<tr><th>Đội</th><th>⭐ Điểm</th><th>🔑 Chìa</th><th>🚪 Phòng</th>${evCol}<th>✔ Đúng</th><th>Chính xác</th></tr>`;
   const row = t => `<td>${esc(t.name)}${t.i === G.winner ? " 👑" : ""}</td>
     <td>${t.score}</td>
     <td>${t.keys}</td>
     <td>${t.rooms}</td>
+    ${S.eventsOn ? `<td>🔥${t.trapsHit} / 🍀${t.luckyHit}</td>` : ""}
     <td>${t.correct}/${t.answered}</td>
     <td>${t.answered ? Math.round(t.correct / t.answered * 100) : 0}%</td>`;
   $("#endTable").innerHTML = head + sorted.map(t => `<tr style="--tc:${t.c}">${row(t)}</tr>`).join("");
@@ -1960,7 +2335,7 @@ const SETTINGS_HTML = `
     <textarea data-k="secretClues" spellcheck="false" placeholder="Mỗi dòng là 1 manh mối sẽ mở dần khi đội vượt qua phòng 🔑 (hỗ trợ công thức $...$)."></textarea>
     <div class="qb-mini">Mở phòng 🔑 sẽ mở lần lượt từ dòng 1 → cuối (nếu mở hết sẽ tự hé lộ từng ký tự của mật mã). Để trống sẽ tự tạo gợi ý từ mật mã.</div>
   </div>
-  <div class="sec">Cài đặt Mê Cung Tri Thức</div>
+  <div class="sec">Cài đặt Mê Cung, 3D &amp; Ô Bẫy / May Mắn</div>
   <div class="two">
     <div class="field"><label>Chế độ</label>
       <select data-k="mode"><option value="1">Cả lớp (hợp tác)</option><option value="2">2 đội</option><option value="3">3 đội</option><option value="4">4 đội</option></select>
@@ -1970,8 +2345,12 @@ const SETTINGS_HTML = `
     </div>
     <div class="field"><label>Giây / câu (0 = không giới hạn)</label><input data-k="time" type="number" min="0" max="900"></div>
     <div class="field"><label>Số đuốc (chế độ Cả lớp)</label><input data-k="torches" type="number" min="1" max="15"></div>
+    <div class="field"><label>Số ô Bẫy (🔥 −5%, 🕸️ −8%, 🕳️ −10%, 🐺 −15%)</label><input data-k="trapCount" type="number" min="0" max="12"></div>
+    <div class="field"><label>Số ô May Mắn (📜 Gợi ý, 🧲 +5%, 💰 +100đ, 🍀)</label><input data-k="luckyCount" type="number" min="0" max="12"></div>
   </div>
   <div class="field"><label>Tên các đội</label><div class="tnames">${TEAM_DEF.map((d, i) => `<input data-t="${i}" maxlength="24" style="--tc:${d.c}">`).join("")}</div></div>
+  <label class="chk"><input data-k="view3d" type="checkbox"> Hiển thị ở chế độ Mê Cung 3D (có thể đổi nhanh bằng phím T)</label>
+  <label class="chk"><input data-k="eventsOn" type="checkbox"> Bật Phòng Bí Ẩn ❓ (rải rác Bẫy &amp; Ô May Mắn khắp mê cung)</label>
   <label class="chk"><input data-k="steal" type="checkbox"> Cho phép cướp lượt khi trả lời sai (nhiều đội)</label>
   <label class="chk"><input data-k="allowHint" type="checkbox"> Cho phép dùng Gợi ý 50/50 (−30đ hoặc dùng Bùa)</label>
   <label class="chk"><input data-k="requireExplain" type="checkbox"> Yêu cầu giải thích lập luận khi đoán đúng mật mã</label>
@@ -1980,11 +2359,12 @@ const SETTINGS_HTML = `
 
 function openEditor() {
   if (["resolving", "moving"].includes(G.phase)) return;
-  if (["pick", "question", "result", "steal", "vault"].includes(G.phase) && !confirm("Dừng trận đang chơi để soạn câu hỏi / cài đặt mật mã?")) return;
+  if (["pick", "question", "result", "steal", "vault", "event"].includes(G.phase) && !confirm("Dừng trận đang chơi để soạn câu hỏi / cài đặt mật mã?")) return;
   stopTimer(); G.phase = "editor";
   hideCard();
   $("#vaultModal").classList.add("hidden");
   $("#clueModal").classList.add("hidden");
+  $("#eventModal").classList.add("hidden");
   $("#actionbar").classList.add("hidden");
   $("#intro").classList.add("hidden"); $("#endScreen").classList.add("hidden");
   QB.openEditor({
@@ -2028,7 +2408,7 @@ function openEditor() {
     },
     reset(root) { const keep = S; S = { ...DEF, teamNames: DEF.teamNames.slice() }; this.fill(root); S = keep; },
     onSave(settings) { S = settings; if (!S.secretCode) S.secretCode = DEFAULT_SECRET; saveS(); },
-    onClose() { newGame(); showIntro(); }
+    onClose() { newGame(); applyViewMode(!!S.view3d, true); showIntro(); }
   });
 }
 
@@ -2043,7 +2423,7 @@ $("#mazeSvg").addEventListener("mouseover", e => {
   const g = e.target.closest(".mz-cell.can"); if (!g) return;
   const x = +g.dataset.x, y = +g.dataset.y;
   if (G.maze.cells[y][x].type === "vault") return;
-  if (!G.cursor || G.cursor.x !== x || G.cursor.y !== y) { G.cursor = { x, y }; renderMaze(); renderActionBar(); }
+  if (!G.cursor || G.cursor.x !== x || G.cursor.y !== y) { G.cursor = { x, y }; renderAll(); renderActionBar(); }
 });
 $("#actionbar").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
@@ -2053,6 +2433,9 @@ $("#actionbar").addEventListener("click", e => {
   else if (a === "back") { $("#actionbar").classList.add("hidden"); $("#endScreen").classList.remove("hidden"); G.phase = "end"; }
   else if (a === "again") { G.phase = "end"; startGame(); }
 });
+$("#btnEvOk").addEventListener("click", closeEventModal);
+$("#btnView").addEventListener("click", () => applyViewMode(!S.view3d));
+$("#btnCam").addEventListener("click", cycleCam3D);
 $("#codeChip").addEventListener("click", openClueModal);
 $("#btnClueClose").addEventListener("click", closeClueModal);
 $("#btnClueGuess").addEventListener("click", () => { closeClueModal(); openVaultModal(); });
@@ -2078,10 +2461,14 @@ $("#rsFoot").addEventListener("click", e => {
 });
 $("#btnStart").addEventListener("click", startGame);
 $("#btnAgain").addEventListener("click", startGame);
-$("#btnMap").addEventListener("click", () => { $("#endScreen").classList.add("hidden"); G.phase = "map"; renderActionBar(); });
+$("#btnMap").addEventListener("click", () => { $("#endScreen").classList.add("hidden"); G.phase = "map"; renderAll(); renderActionBar(); });
 ["#btnEdit", "#btnEdit2", "#btnEdit3"].forEach(s => $(s).addEventListener("click", openEditor));
 document.querySelectorAll("#modeSeg button").forEach(b => b.addEventListener("click", () => setOpt("mode", +b.dataset.v)));
 document.querySelectorAll("#sizeSeg button").forEach(b => b.addEventListener("click", () => setOpt("size", b.dataset.v)));
+document.querySelectorAll("#viewSeg button").forEach(b => b.addEventListener("click", () => {
+  applyViewMode(b.dataset.v === "1");
+  showIntro();
+}));
 function toggleMute() { A.init(); $("#btnMute").textContent = A.toggle() ? "🔇" : "🔊"; }
 function toggleFull() { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {}); else document.exitFullscreen?.(); }
 $("#btnMute").addEventListener("click", toggleMute);
@@ -2089,7 +2476,7 @@ $("#btnFull").addEventListener("click", toggleFull);
 
 function moveFrontierCursor(dx, dy) {
   if (!G.frontier.length) return;
-  if (!G.cursor) { G.cursor = { x: G.frontier[0].x, y: G.frontier[0].y }; renderMaze(); renderActionBar(); return; }
+  if (!G.cursor) { G.cursor = { x: G.frontier[0].x, y: G.frontier[0].y }; renderAll(); renderActionBar(); return; }
   let best = null, bestScore = Infinity;
   for (const f of G.frontier) {
     const rx = f.x - G.cursor.x, ry = f.y - G.cursor.y;
@@ -2105,7 +2492,7 @@ function moveFrontierCursor(dx, dy) {
   }
   G.cursor = { x: best.x, y: best.y };
   A.init(); SFX.step();
-  renderMaze(); renderActionBar();
+  renderAll(); renderActionBar();
 }
 
 const clueModalOpen = () => !$("#clueModal").classList.contains("hidden");
@@ -2118,6 +2505,10 @@ addEventListener("keydown", e => {
 
   if (clueModalOpen()) {
     if (k === "escape") { e.preventDefault(); closeClueModal(); }
+    return;
+  }
+  if (G.phase === "event") {
+    if (k === " " || k === "enter" || k === "escape") { e.preventDefault(); closeEventModal(); }
     return;
   }
   if (G.phase === "vault") {
@@ -2171,6 +2562,8 @@ addEventListener("keydown", e => {
       return;
     }
   }
+  if (k === "t") return applyViewMode(!S.view3d);
+  if (k === "v") return cycleCam3D();
   if (k === "f") return toggleFull();
   if (k === "m") return toggleMute();
   if (k === "e") return openEditor();
@@ -2184,12 +2577,13 @@ function enterGame() {
   if (!s || s.classList.contains("leaving")) return;
   A.init(); SFX.start();
   s.classList.add("leaving");
-  setTimeout(() => s.remove(), 750);
+  setTimeout(() => { s.remove(); if (S.view3d && window.Maze3D) Maze3D.resize(); }, 750);
   $("#btnStart").focus({ preventScroll: true });
 }
 $("#splash").addEventListener("click", enterGame);
 
 newGame();
+applyViewMode(!!S.view3d, true);
 showIntro();
 QB.imagesReady.then(() => {});
 </script>
